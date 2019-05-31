@@ -38,10 +38,12 @@ class EffectLine extends GameObject{
     }
 
     setShape( rate:number ){
-        let shape = new egret.Shape();
-        if( this.display ) GameObject.display.removeChild(this.display);
-        this.display = shape;
-        GameObject.display.addChild(this.display);
+        if( this.display == null ){
+            this.display = new egret.Shape();
+            GameObject.display.addChild(this.display);
+        }
+        const shape:egret.Shape = this.display as egret.Shape;
+        shape.graphics.clear();
 
         rate = rate * Math.PI * 0.5;
         let rateS = Math.sin(rate);
