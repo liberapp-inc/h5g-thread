@@ -6,8 +6,9 @@ const PIXEL_PER_METER = 1;
 const GAME_AREA_H05_PER_W = 0.6;
 const THREAD_WIDTH_PER_W = 1/256;
 const PLAYER_SPEED_PER_W = 1/180;
-const OBJ_BLOCK_SIZE_PER_W = 1 / 16;
-const OBJ_CIRCLE_SIZE_PER_W = 1 / 16;
+const PILLAR_WIDTH_PER_W = 1/32;
+const BLOCK_SIZE_PER_W = 1 / 16;
+const CIRCLE_SIZE_PER_W = 1 / 16;
 
 const RISE_POWER_PER_W = (1/1200);
 const PHYSICS_GROUP_PLAYER = 1<<1;
@@ -16,10 +17,10 @@ const PHYSICS_GRAVITY_PER_H = 0.01;
 
 const SAVE_KEY_BESTSCORE = "thread-bestScore";  // + stage number
 
-const BACK_COLOR = 0xfff0f0;    // index.htmlで設定
-const FONT_COLOR = 0x4090b0;
-const PLAYER_COLOR = 0x206080;
-const OBJECT_COLOR = 0x206080;
+const BACK_COLOR = 0x303030;    // index.htmlで設定
+const FONT_COLOR = 0xffffff;
+const PLAYER_COLOR = 0xe0e0e0;
+const OBJECT_COLOR = 0xc0c0c0;
 
 class Game {
 

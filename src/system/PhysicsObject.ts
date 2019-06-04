@@ -1,6 +1,7 @@
 // Liberapp 2019 Tahiti Katagai
 // 物理エンジンp2オブジェクト
 //  Unityと同じように物理系はfixedUpdate()に処理を記述する。（update()はオーバライドしない）
+//  update()では自動でthis.bodyの物理演算結果をthis.displayに反映させています
 
 abstract class PhysicsObject extends GameObject {
 
@@ -42,10 +43,6 @@ abstract class PhysicsObject extends GameObject {
         PhysicsObject.height = PhysicsObject.pixelToMeter(Util.height);
 
         PhysicsObject.world = new p2.World();
-        console.log( "friction = "+PhysicsObject.world.defaultContactMaterial.friction );
-        console.log( "stiffness = "+PhysicsObject.world.defaultContactMaterial.stiffness );
-        console.log( "Relaxation = "+PhysicsObject.world.defaultContactMaterial.frictionRelaxation );
-        console.log( "Stuffness = "+PhysicsObject.world.defaultContactMaterial.frictionStuffness );
         PhysicsObject.world.gravity = [0, PhysicsObject.height * PHYSICS_GRAVITY_PER_H ];
         PhysicsObject.world.defaultContactMaterial.friction = 1;    // default 0.3
         PhysicsObject.lastTime = Date.now();

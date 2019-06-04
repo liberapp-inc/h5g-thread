@@ -108,14 +108,13 @@ class Player extends PhysicsObject{
         this.state = this.stateNone;
     }
     stateNone(){
-//        this.scrollCamera();
     }
 
     setStateMove(){
         this.state = this.stateMove;
     }
     stateMove() {
-        // rise
+        this.vy *= 0.97;
         if( this.button.touch ){
             this.vy -= Util.w(RISE_POWER_PER_W);
         }else{
@@ -141,6 +140,7 @@ class Player extends PhysicsObject{
             return;
         new GameOver();
         PhysicsObject.deltaScale = 0.1;
+        egret.Tween.removeAllTweens();
         this.state = this.stateNone;
     }
 }
