@@ -6,11 +6,18 @@ const PIXEL_PER_METER = 1;
 const GAME_AREA_H05_PER_W = 0.6;
 const THREAD_WIDTH_PER_W = 1/256;
 const PLAYER_SPEED_PER_W = 1/180;
-const PILLAR_WIDTH_PER_W = 1/32;
-const BLOCK_SIZE_PER_W = 1 / 16;
-const CIRCLE_SIZE_PER_W = 1 / 16;
 
-const RISE_POWER_PER_W = (1/1200);
+const PILLAR_WIDTH_PER_W = 1/32;
+const PILLAR_PERIOD = 90;
+const PILLAR_HOLE_MAX_PW:number = 0.25;
+const PILLAR_HOLE_MIN_PW:number = 0.15;
+
+const CAVE_WIDTH_PER_W = 1/2;
+const CAVE_PERIOD = 90;
+const CAVE_HOLE_MAX_PW:number = 0.30;
+const CAVE_HOLE_MIN_PW:number = 0.20;
+
+const RISE_POWER_PER_W = (1/2000);
 const PHYSICS_GROUP_PLAYER = 1<<1;
 const PHYSICS_GROUP_OBSTACLE = 1<<2;
 const PHYSICS_GRAVITY_PER_H = 0.01;
