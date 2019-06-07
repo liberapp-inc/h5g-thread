@@ -131,7 +131,7 @@ class Player extends PhysicsObject{
     }
 
     checkOut(){
-        if( (this.py - Util.h(0.5))**2 > Util.w(GAME_AREA_H05_PER_W)**2 )
+        if( (this.py - Util.h(0.5))**2 > Util.w(GAME_AREA_H_PER_W*0.5)**2 )
             this.miss();
     }
 

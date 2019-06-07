@@ -15,8 +15,8 @@ class BackGround extends GameObject{
         GameObject.display.addChild(this.display);
 
         shape.graphics.beginFill( OBJECT_COLOR, 1 );
-        shape.graphics.drawRect(0, 0,  Util.width, Util.h(0.5)-Util.w(GAME_AREA_H05_PER_W) );
-        shape.graphics.drawRect(0, Util.h(0.5)+Util.w(GAME_AREA_H05_PER_W),  Util.width, Util.height );
+        shape.graphics.drawRect(0, 0,  Util.width, Util.h(0.5)-Util.w(GAME_AREA_H_PER_W*0.5) );
+        shape.graphics.drawRect(0, Util.h(0.5)+Util.w(GAME_AREA_H_PER_W*0.5),  Util.width, Util.height );
         shape.graphics.endFill();
     }
 

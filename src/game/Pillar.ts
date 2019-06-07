@@ -1,5 +1,5 @@
 // Liberapp 2019 - Tahiti Katagai
-// 障害物
+// 障害物　柱
 
 enum PType{
     Normal,
@@ -20,9 +20,9 @@ class Pillar extends PhysicsObject{
     // 柱 中央の穴の座標を指定
     static newPillar( px:number, py:number, type:PType, lv:number ){
         const w = Util.w( PILLAR_WIDTH_PER_W );
-        const h = Util.width;   // 横幅基準の高さ
+        const h = Util.w( GAME_AREA_H_PER_W );
         const hole = Util.w( Util.lerp(PILLAR_HOLE_MAX_PW, PILLAR_HOLE_MIN_PW, lv) );
-        const yofs = hole*0.5 + Util.w(0.5);
+        const yofs = (hole + h) * 0.5;
         const o0 = new Pillar( px, py-yofs, w, h, OBJECT_COLOR, 1 );
         const o1 = new Pillar( px, py+yofs, w, h, OBJECT_COLOR, 0 );
 
