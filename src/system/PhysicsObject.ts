@@ -65,7 +65,7 @@ abstract class PhysicsObject extends GameObject {
             this.body = null;
         }
         if( this.display ){
-            GameObject.display.removeChild(this.display);
+            GameObject.gameDisplay.removeChild(this.display);
             this.display = null;
         }
     }

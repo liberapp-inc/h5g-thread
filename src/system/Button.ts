@@ -15,7 +15,7 @@ class Button extends GameObject{
         super();
 
         let shape = new egret.Shape();
-        GameObject.display.addChild(shape);
+        GameObject.gameDisplay.addChild(shape);
         shape.graphics.beginFill( rgb, alpha );
         let w = wRatio * Util.width;
         let h = hRatio * Util.height;
@@ -28,7 +28,7 @@ class Button extends GameObject{
 
         if( text ){
             this.text = Util.newTextField(text, fontsize, fontRGB, xRatio, yRatio, true, false);
-            GameObject.display.addChild( this.text );
+            GameObject.gameDisplay.addChild( this.text );
         }
         this.onTap = onTap;
         if( this.onTap ) this.display.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this);
@@ -39,11 +39,11 @@ class Button extends GameObject{
 
     onDestroy(){
         if( this.onTap ) this.display.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this);
-        GameObject.display.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
-        GameObject.display.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-        GameObject.display.removeEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
+        GameObject.gameDisplay.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
+        GameObject.gameDisplay.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+        GameObject.gameDisplay.removeEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
 
-        if( this.text ) GameObject.display.removeChild( this.text );
+        if( this.text ) GameObject.gameDisplay.removeChild( this.text );
     }
 
     update() {

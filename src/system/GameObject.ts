@@ -1,6 +1,6 @@
-// Liberapp 2019 Tahiti Katagai
+// Liberapp 2020 - Tahiti Katagai
 
-// UnityのGameObjectライクなタスク管理クラス
+// UnityのGameObject+MonoBehaviourライクなタスク管理クラス
 //  update()に毎フレームの処理を書く
 //  オブジェクトを破棄するときはdestroy()を呼ぶ
 //  破棄のときに後処理が必要なら、onDestroy()に記述
@@ -10,6 +10,11 @@
 abstract class GameObject {
     
     public display:egret.DisplayObject = null;
+    
+    get X():number { return this.display.x; }
+    get Y():number { return this.display.y; }
+    set X( x:number ){ this.display.x = x; }
+    set Y( y:number ){ this.display.y = y; }
 
     constructor() {
         GameObject.objects.push(this);
@@ -21,12 +26,16 @@ abstract class GameObject {
     onDestroy(){}
 
     // system
+    
     private static objects: GameObject[] = [];
-    public static display: egret.DisplayObjectContainer;
+    public static baseDisplay: egret.DisplayObjectContainer;
+    public static gameDisplay: egret.DisplayObjectContainer;
     public static transit:()=>void;
 
     static initial(displayObjectContainer: egret.DisplayObjectContainer){
-        GameObject.display = displayObjectContainer;
+        GameObject.baseDisplay = displayObjectContainer;
+        GameObject.gameDisplay = new egret.DisplayObjectContainer();
+        GameObject.baseDisplay.addChild( GameObject.gameDisplay );
     }
     static process(){
         GameObject.objects.forEach( obj => obj.update() );
@@ -48,7 +57,7 @@ abstract class GameObject {
     protected _delete(){
         this.onDestroy();
         if( this.display ){
-            GameObject.display.removeChild(this.display);
+            this.display.parent.removeChild(this.display);
             this.display = null;
         }
     }

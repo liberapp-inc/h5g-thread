@@ -16,22 +16,18 @@ class Score extends GameObject{
         Score.I = this;
         this.point = 0;
         this.text = Util.newTextField("0", Util.width / 16, FONT_COLOR2, 0.5, 0.0, true, true);
-        GameObject.display.addChild( this.text );
+        GameObject.gameDisplay.addChild( this.text );
 
-        let bestScore = egret.localStorage.getItem(SAVE_KEY_BESTSCORE); // string
-        if( bestScore == null ){
-            bestScore = "10";
-            egret.localStorage.setItem(SAVE_KEY_BESTSCORE, bestScore);
-        }
-        this.bestScore = parseInt( bestScore );
-        this.textBest = Util.newTextField("BEST:" + bestScore + "", Util.width / 24, FONT_COLOR2, 1.0, 0.0, true, true);
-        GameObject.display.addChild( this.textBest );
+        let bestScore = Util.getSaveDataNumber( SaveKeyBestScore, DefaultBestScore );
+        this.bestScore = bestScore;
+        this.textBest = Util.newTextField("BEST:" + bestScore, Util.width / 24, FONT_COLOR2, 1.0, 0.0, true, true);
+        GameObject.gameDisplay.addChild( this.textBest );
     }
     
     onDestroy() {
-        GameObject.display.removeChild( this.text );
+        GameObject.gameDisplay.removeChild( this.text );
         this.text = null;
-        GameObject.display.removeChild( this.textBest );
+        GameObject.gameDisplay.removeChild( this.textBest );
         this.textBest = null;
         Score.I = null;
     }

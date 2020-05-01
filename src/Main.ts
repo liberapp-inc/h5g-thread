@@ -8,8 +8,12 @@ class Main extends eui.UILayer {
         this.once(egret.Event.ADDED_TO_STAGE, this.addToStage, this);
     }
  
-    private addToStage() {
-        Util.init( this );
+    private async addToStage() {
+
+        // new SdkUtil();
+        // await SdkUtil.I.init();
+
+        Util.initial( this );
         GameObject.initial( this.stage );
         PhysicsObject.prepare( PIXEL_PER_METER );
         Camera2D.initial();

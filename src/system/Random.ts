@@ -1,21 +1,23 @@
-// Liberapp 2019 - Tahiti Katagai
+// Liberapp 2020 - Tahiti Katagai
 // ランダム XorShift
 // シード指定で乱数周期を再現できる
 
 // global
-function rand():number { return globalRandom.v(); }                                     // 0以上 1未満
+function randInt():number { return globalRandom.int(); }                                // 0 ~ max (整数)
+function rand01():number { return globalRandom.f01(); }                                 // 0以上 1未満
 function randF( min:number, max:number ):number { return globalRandom.f(min, max); }    // min以上 max未満
 function randI( min:number, max:number ):number { return globalRandom.i(min, max); }    // min以上 max未満（整数）
-function randBool():boolean { return globalRandom.bool(); }
+function randBool( rate:number=0.5 ):boolean { return globalRandom.bool(rate); }
 
 class Random {
 
-    v():number{ return (this.next() & Random.max) / (Random.max + 1); }     // 0以上 1未満
-    f(min:number, max:number) { return min + this.v() * (max - min); }      // min以上 max未満
+    int():number{ return (this.next() & Random.max); }                       // 0 ~ max (整数)
+    f01():number{ return this.int() / (Random.max + 1); }                    // 0以上 1未満
+    f(min:number, max:number) { return min + this.f01() * (max - min); }    // min以上 max未満
     i(min:number, max:number) { return Math.floor( this.f(min, max) ); }    // min以上 max未満（整数）
-    bool():boolean { return ( (this.next() & 1) != 0 ); }
+    bool( rate:number=0.5 ):boolean { return ( this.f01() < rate ); }
 
-    static readonly max:number = 0x3fffffff;
+    static readonly max:number = 0x3FFFffff;
     
     // XOR Shift
     
@@ -37,4 +39,3 @@ class Random {
 }
 
 let globalRandom = new Random(); // singleton instance
-

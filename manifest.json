@@ -21,6 +21,7 @@
 		"bin-debug/game/Cave.js",
 		"bin-debug/game/Game.js",
 		"bin-debug/system/Random.js",
+		"bin-debug/system/SdkUtil.js",
 		"bin-debug/system/Util.js",
 		"bin-debug/view/GameOver.js",
 		"bin-debug/view/Score.js",

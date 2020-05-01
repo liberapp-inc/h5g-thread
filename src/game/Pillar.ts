@@ -27,7 +27,7 @@ class Pillar extends PhysicsObject{
         const o1 = new Pillar( px, py+yofs, w, h, OBJECT_COLOR, 0 );
 
         const hd = Util.w(0.25);
-        const ms = 1000;
+        const ms = 1000 / SpeedCo;    //speed
 
         switch( type ){
             case PType.Normal:
@@ -122,11 +122,11 @@ class Pillar extends PhysicsObject{
 
     setDisplay( px:number, py:number ){
         if( this.display )
-            GameObject.display.removeChild( this.display );
+            GameObject.gameDisplay.removeChild( this.display );
 
         const shape = new egret.Shape();
         this.display = shape;
-        GameObject.display.addChildAt(this.display, 1);
+        GameObject.gameDisplay.addChildAt(this.display, 1);
         shape.x = px;
         shape.y = py;
         shape.graphics.beginFill( this.color );

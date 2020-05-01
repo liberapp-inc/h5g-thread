@@ -50,7 +50,7 @@ class Player extends PhysicsObject{
     setDisplay( px:number, py:number ){
         if( this.display == null ){
             this.display = new egret.Shape();
-            GameObject.display.addChild(this.display);
+            GameObject.gameDisplay.addChild(this.display);
         }
         const shape:egret.Shape = this.display as egret.Shape;
         shape.graphics.clear();
@@ -114,7 +114,9 @@ class Player extends PhysicsObject{
         this.state = this.stateMove;
     }
     stateMove() {
-        this.vy *= 0.97;
+        // this.vy *= 0.97;
+        this.vy *= 1 - Math.pow( 0.03, SpeedCo ); //0.97;//speed　
+
         if( this.button.touch ){
             this.vy -= Util.w(RISE_POWER_PER_W);
         }else{

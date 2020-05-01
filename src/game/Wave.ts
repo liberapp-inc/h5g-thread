@@ -47,7 +47,7 @@ class Wave extends GameObject{
         let px = this.waveX;
         let py = Util.h(0.5) + Util.w( randF(-0.3, +0.3) * Util.lerp(0.7, 1, Wave.hardRate) );
         let type = PType.Normal;            // 動かないノーマルピラー
-        if( rand() < 0.8*Wave.hardRate ){   // 最大80%の確率で別タイプ生成
+        if( randBool( 0.8 * Wave.hardRate ) ){   // 最大80%の確率で別タイプ生成
             type = randI(PType.Normal, PType.Total);
         }
         Pillar.newPillar( px, py, type, Wave.hardRate );
