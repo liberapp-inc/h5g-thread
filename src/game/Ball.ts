@@ -1,30 +1,16 @@
 // Liberapp 2019 - Tahiti Katagai
-// 障害物　柱
+// 障害物　ボール
 
-enum PType{
-    Normal,
-    Up,
-    Down,
-    Open,
-    Close,
-    UC,
-    DC,
-    UD,
-    DU,
-    Narrow,
-    Total
-}
+class Ball extends PhysicsObject{
 
-class Pillar extends PhysicsObject{
-
-    // 柱 中央の穴の座標を指定
-    static newPillar( px:number, py:number, type:PType, lv:number ){
-        const w = Util.w( PILLAR_WIDTH_PER_W );
-        const h = Util.w( GAME_AREA_H_PER_W );
+    // 
+    static newBall( px:number, py:number, type:PType, lv:number ){
+        const r = Util.w( BALL_RADIUS_PER_W );
         const hole = Util.w( Util.lerp(PILLAR_HOLE_MAX_PW, PILLAR_HOLE_MIN_PW, lv) );
-        const yofs = (hole + h) * 0.5;
-        const o0 = new Pillar( px, py-yofs, w, h, OBJECT_COLOR, 1 );
-        const o1 = new Pillar( px, py+yofs, w, h, OBJECT_COLOR, 0 );
+        const yofs = (hole + r) * 0.5;
+        const w = Util.w( PILLAR_INTER_PER_W );
+        const o0 = new Ball( px+randF(0,w), py-yofs, r*randF(0.5,2), OBJECT_COLOR, 1 );
+        const o1 = new Ball( px+randF(0,w), py+yofs, r*randF(0.5,2), OBJECT_COLOR, 0 );
 
         const hd = Util.w(0.25);
         const ms = 1000 / Player.speedCo;    //speed
@@ -99,19 +85,17 @@ class Pillar extends PhysicsObject{
 
     x:number;
     y:number;
-    w:number;
-    h:number;
+    r:number;
     color:number;
     point:number;
     pass:boolean = false;
 
-    constructor( px:number, py:number, w:number, h:number, color:number, point:number ) {
+    constructor( px:number, py:number, r:number, color:number, point:number ) {
         super();
 
         this.x = px;
         this.y = py;
-        this.w = w;
-        this.h = h;
+        this.r = r;
         this.color = color;
         this.point = point;
         this.setDisplay( px, py );
@@ -130,13 +114,13 @@ class Pillar extends PhysicsObject{
         shape.x = px;
         shape.y = py;
         shape.graphics.beginFill( this.color );
-        shape.graphics.drawRect( -0.5*this.w, -0.5*this.h, this.w, this.h );
+        shape.graphics.drawCircle( 0, 0, this.r );
         shape.graphics.endFill();
     }
 
     setBody( px:number, py:number ){
         this.body = new p2.Body( {gravityScale:0, mass:1, position:[this.p2m(px), this.p2m(py)], type:p2.Body.STATIC} );
-        this.body.addShape(new p2.Box( { width:this.p2m(this.w), height:this.p2m(this.h), collisionGroup:PHYSICS_GROUP_OBSTACLE, collisionMask:PHYSICS_GROUP_PLAYER } ), [0, 0], 0);
+        this.body.addShape(new p2.Circle({ radius:this.p2m(this.r), collisionGroup:PHYSICS_GROUP_OBSTACLE, collisionMask:PHYSICS_GROUP_PLAYER }));
         this.body.displays = [this.display];
         PhysicsObject.world.addBody(this.body);
     }
@@ -154,7 +138,7 @@ class Pillar extends PhysicsObject{
             Score.I.addPoint( this.point );
             egret.Tween.removeTweens(this);
         }
-        if( this.display.x + this.w < 0 ){
+        if( this.display.x + this.r < 0 ){
             this.destroy();
         }
     }

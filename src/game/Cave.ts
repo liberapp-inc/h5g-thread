@@ -7,6 +7,7 @@ class Cave extends Pillar{
     static prevPy1;
 
     // 洞窟 通路の座標を指定。前回の通路とつなぐ
+    // ピラー２回分を一度に配置
     static newCave( px:number, py:number, lv:number ){
         const w = Util.w( CAVE_WIDTH_PER_W );
         const h = Util.w( GAME_AREA_H_PER_W );

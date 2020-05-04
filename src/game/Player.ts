@@ -4,6 +4,7 @@
 class Player extends PhysicsObject{
 
     static I:Player = null;
+    static speedCo = 1;
 
     radius:number;
     x:number;
@@ -26,7 +27,7 @@ class Player extends PhysicsObject{
         this.radius = Util.w(THREAD_WIDTH_PER_W);
         this.x = px;
         this.y = py;
-        this.vx = Util.w( PLAYER_SPEED_PER_W );
+        this.vx = Util.w( PLAYER_SPEED_PER_W ) * Player.speedCo;
         this.vy = 0;
 
         this.xyList = [];
@@ -114,16 +115,18 @@ class Player extends PhysicsObject{
         this.state = this.stateMove;
     }
     stateMove() {
-        // this.vy *= 0.97;
-        this.vy *= 1 - Math.pow( 0.03, SpeedCo ); //0.97;//speed　
 
-        if( this.button.touch ){
-            this.vy -= Util.w(RISE_POWER_PER_W);
-        }else{
-            this.vy += Util.w(RISE_POWER_PER_W);
-        }
         this.x += this.vx;
-        this.y += this.vy;
+
+        for( let i=Player.speedCo ; i>0 ; i-=1 ){
+            const co = Util.clamp01( i );
+            const dumper = Math.pow( 0.97, co );
+            this.vy *= dumper;
+            const rise = Util.w(RISE_POWER_PER_W) * co;
+            this.vy += this.button.touch ? -rise : +rise;
+            this.y += this.vy * co;
+        }
+
         this.px = this.x;
         this.py = this.y;
 
@@ -140,6 +143,7 @@ class Player extends PhysicsObject{
     miss(){
         if( this.state == this.stateNone )
             return;
+        // console.log( "miss() Speed=" + Player.speedCo + " X=" + this.x );
         new GameOver();
         PhysicsObject.deltaScale = 0.1;
         egret.Tween.removeAllTweens();
