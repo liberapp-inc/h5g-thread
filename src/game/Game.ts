@@ -20,7 +20,11 @@ const CAVE_INTER_PER_W = CAVE_WIDTH_PER_W * 2;
 const CAVE_HOLE_MAX_PW:number = 0.30;
 const CAVE_HOLE_MIN_PW:number = 0.13;
 
-const BALL_RADIUS_PER_W = 1/8;
+const BALL_MIN_RADIUS_PER_W = 1/24;
+const BALL_MAX_RADIUS_PER_W = 1/5;
+
+const BOX_MIN_SIZE_PER_W = 1/16;
+const BOX_MAX_SIZE_PER_W = 1/3;
 
 const PHYSICS_GROUP_PLAYER = 1<<1;
 const PHYSICS_GROUP_OBSTACLE = 1<<2;

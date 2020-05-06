@@ -116,6 +116,7 @@ class Player extends PhysicsObject{
     }
     stateMove() {
 
+        this.vx = Util.w( PLAYER_SPEED_PER_W ) * Player.speedCo;
         this.x += this.vx;
 
         for( let i=Player.speedCo ; i>0 ; i-=1 ){
