@@ -153,6 +153,15 @@ class Pillar extends PhysicsObject{
             this.pass = true;
             Score.I.addPoint( this.point );
             egret.Tween.removeTweens(this);
+
+            new EffectFrame( this.X, this.Y, this.w, this.h, EFFECT_COLOR, -Player.I.vx, 0 );
+
+            for( let y=this.Y - this.h*0.5 ; y<=this.Y+this.h*0.5 ; y+=this.w*1.5 ){
+                let vx = this.w * randF( -0.2, +0.2 ) - Player.I.vx;
+                let vy = this.w * randF( -0.2, +0.2 );
+                let w = this.w * 0.5;
+                new EffectFrame( this.X, y, w, w, EFFECT_COLOR, vx, vy );
+            }
         }
         if( this.display.x + this.w < 0 ){
             this.destroy();

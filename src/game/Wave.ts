@@ -9,6 +9,7 @@ class Wave extends GameObject{
     count:number = 0;
     modeCount:number = 4;
     topSpeed:number = 1.4;
+    endInterval:number = 2;
 
     state:()=>void = null;
 
@@ -83,6 +84,8 @@ class Wave extends GameObject{
         }
         Pillar.newPillar( px, py, type, Wave.hardRate );
         this.waveX += Util.w(PILLAR_INTER_PER_W);
+
+        new Coin( px, py );
     }
 
 

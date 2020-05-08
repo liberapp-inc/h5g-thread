@@ -80,6 +80,7 @@ class Box extends PhysicsObject{
             this.pass = true;
             Score.I.addPoint( this.point );
             egret.Tween.removeTweens(this);
+            new EffectFrame( this.X, this.Y, this.s, this.s, EFFECT_COLOR, -Player.I.vx, 0 );
         }
         if( this.display.x + this.s/2 < 0 ){
             this.destroy();

@@ -80,6 +80,7 @@ class Ball extends PhysicsObject{
             this.pass = true;
             Score.I.addPoint( this.point );
             egret.Tween.removeTweens(this);
+            new EffectCircle( this.X, this.Y, this.r, EFFECT_COLOR, -Player.I.vx, 0 );
         }
         if( this.display.x + this.r < 0 ){
             this.destroy();

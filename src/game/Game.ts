@@ -26,6 +26,8 @@ const BALL_MAX_RADIUS_PER_W = 1/5;
 const BOX_MIN_SIZE_PER_W = 1/16;
 const BOX_MAX_SIZE_PER_W = 1/3;
 
+const COIN_RADIUS_PER_W = 1/64;
+
 const PHYSICS_GROUP_PLAYER = 1<<1;
 const PHYSICS_GROUP_OBSTACLE = 1<<2;
 const PHYSICS_GRAVITY_PER_H = 0;
@@ -35,6 +37,8 @@ const FONT_COLOR = 0xffffff;
 const FONT_COLOR2 = 0x000000;
 const PLAYER_COLOR = 0xe0e0e0;
 const OBJECT_COLOR = 0xc0c0c0;
+const COIN_COLOR = 0xffff00;
+const EFFECT_COLOR = 0xffffff;
 
 class Game {
 
