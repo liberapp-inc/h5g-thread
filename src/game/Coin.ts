@@ -48,8 +48,9 @@ class Coin extends GameObject{
         let dx = Player.I.x - this.x;
         let dy = Player.I.y - this.y;
         let l = dx**2 + dy**2;
-        if( l <= (Player.I.radius + this.radius)**2 ){
-            Score.I.addPoint(1);
+        if( l <= ( Player.I.radius + this.radius * 4 )**2 ){
+            Score.I.addPoint(20);
+            new EffectCircle( this.X, this.Y, this.radius*1.5, COIN_COLOR, -Player.I.vx, 0 );
             this.destroy();
             return true;
         }

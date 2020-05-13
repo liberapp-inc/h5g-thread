@@ -9,18 +9,27 @@ class Ball extends PhysicsObject{
         const minR = Util.w( BALL_MIN_RADIUS_PER_W );
         const maxR = Util.w( BALL_MAX_RADIUS_PER_W );
         px += maxR;
-        const hd = Util.w(0.25);
         const ms = 1500 / Player.speedCo;    //speed
         for( let i=0 ; i<count ; i++ ){
             let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * randF(-0.5, +0.5) );
             let r = Util.lerp( minR, maxR, rand01() * sizeRate );
-            let o = new Ball( px+randF(0,w), y, r, OBJECT_COLOR, i==0 ? 1 : 0 );
+            let o = new Ball( px+randF(0,w), y, r, OBJECT_COLOR, 3 );
             if( randBool( 1/4 * lv ) )
             {
-                if( randBool() ){
-                    egret.Tween.get(o,{loop:false}) .to({y:o.y-hd}, ms)
-                }else{
-                    egret.Tween.get(o,{loop:false}) .to({y:o.y+hd}, ms)
+                let angle = randF(0,Math.PI);
+                let moveW = Util.w(0.25) * Math.cos(angle);
+                let moveH = Util.w(0.25) * Math.sin(angle);
+                
+                if( randBool(0.5*Wave.hardRate) )   //loop
+                {
+                    egret.Tween.get(o,{loop:true})
+                        .to({y:o.y+moveH, x:o.x+moveW}, ms)
+                        .to({y:o.y, x:o.x}, ms)
+                }
+                else{
+                    if( randBool() ){
+                        egret.Tween.get(o,{loop:false}) .to({y:o.y+moveH, x:o.x+moveW}, ms)
+                    }
                 }
             }
         }

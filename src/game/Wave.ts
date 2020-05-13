@@ -36,7 +36,7 @@ class Wave extends GameObject{
                     Wave.hardRate = Util.clamp( Wave.hardRate - 0.25, 0, 1 );
                 }else{
                     Player.speedCo = 1.0;
-                    Wave.hardRate = Util.clamp( this.count/200, 0, 1 );
+                    Wave.hardRate = Util.clamp( this.count/20, 0, 1 );
                 }
 
                 switch( randI( 0, 3+1 ) ){
@@ -83,9 +83,11 @@ class Wave extends GameObject{
             type = randI(PType.Normal, PType.Total);
         }
         Pillar.newPillar( px, py, type, Wave.hardRate );
-        this.waveX += Util.w(PILLAR_INTER_PER_W);
+        const w = Util.w(PILLAR_INTER_PER_W);
+        this.waveX += w;
 
-        new Coin( px, py );
+        if( randBool(0.4) )
+            new Coin( px*w*0.5, py );
     }
 
 
@@ -105,7 +107,10 @@ class Wave extends GameObject{
         let px = this.waveX;
         let py = Util.h(0.5) + Util.w( randF(-gap, +gap) * Util.lerp(0.5, 1, Wave.hardRate) );
         Cave.newCave( px, py, Wave.hardRate );
-        this.waveX += Util.w(CAVE_WIDTH_PER_W * 2);
+        const w = Util.w(PILLAR_INTER_PER_W*2);
+        this.waveX += w;
+        if( randBool(0.4) )
+            new Coin( px*w*0.5, py );
     }
 
 
@@ -129,6 +134,11 @@ class Wave extends GameObject{
             Ball.newBall( px, Wave.hardRate, 0, 4 );
         
         this.waveX += Util.w(PILLAR_INTER_PER_W);
+        
+        if( randBool(0.4) ){
+            let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * randF(-0.5, +0.5) );
+            new Coin( px, y );
+        }
     }
 
 
@@ -152,6 +162,11 @@ class Wave extends GameObject{
             Box.newBox( px, Wave.hardRate, 0, 6 );
         
         this.waveX += Util.w(PILLAR_INTER_PER_W);
+        
+        if( randBool(0.4) ){
+            let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * randF(-0.5, +0.5) );
+            new Coin( px, y );
+        }
     }
 }
 

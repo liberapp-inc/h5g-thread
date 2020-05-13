@@ -20,10 +20,11 @@ class Cave extends Pillar{
         const foot = Math.max( py1, Cave.prevPy1 );
         const wadj = Util.w(1/256);
 
-        new Pillar( px+w*0.5, head, w+wadj, h, OBJECT_COLOR, 1 );
-        new Pillar( px+w*0.5, foot, w+wadj, h, OBJECT_COLOR, 0 );
-        new Pillar( px+w*1.5,  py0, w+wadj, h, OBJECT_COLOR, 1 );
-        new Pillar( px+w*1.5,  py1, w+wadj, h, OBJECT_COLOR, 0 );
+        const effect = false;
+        new Pillar( px+w*0.5, head, w+wadj, h, OBJECT_COLOR, 1, effect );
+        new Pillar( px+w*0.5, foot, w+wadj, h, OBJECT_COLOR, 0, effect );
+        new Pillar( px+w*1.5,  py0, w+wadj, h, OBJECT_COLOR, 1, effect );
+        new Pillar( px+w*1.5,  py1, w+wadj, h, OBJECT_COLOR, 0, effect );
 
         Cave.prevPy0 = py0;
         Cave.prevPy1 = py1;

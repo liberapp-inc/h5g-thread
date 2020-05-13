@@ -14,13 +14,27 @@ class Box extends PhysicsObject{
         for( let i=0 ; i<count ; i++ ){
             let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * randF(-0.5, +0.5) );
             let s = Util.lerp( minS, maxS, rand01() * sizeRate );
-            let o = new Box( px+randF(0,w), y, s, OBJECT_COLOR, i==0 ? 1 : 0 );
+            let o = new Box( px+randF(0,w), y, s, OBJECT_COLOR, 3 );
             if( randBool( 1/4 * lv ) )
             {
-                if( randBool() ){
-                    egret.Tween.get(o,{loop:false}) .to({y:o.y-hd}, ms)
-                }else{
-                    egret.Tween.get(o,{loop:false}) .to({y:o.y+hd}, ms)
+                if( randBool(0.5*Wave.hardRate) )   //loop
+                {
+                    if( y < Util.h(0.5) ){
+                        egret.Tween.get(o,{loop:true})
+                            .to({y:o.y+hd}, ms)
+                            .to({y:o.y+ 0}, ms)
+                    }else{
+                        egret.Tween.get(o,{loop:true})
+                            .to({y:o.y-hd}, ms)
+                            .to({y:o.y+ 0}, ms)
+                    }
+                }
+                else{
+                    if( randBool() ){
+                        egret.Tween.get(o,{loop:false}) .to({y:o.y-hd}, ms)
+                    }else{
+                        egret.Tween.get(o,{loop:false}) .to({y:o.y+hd}, ms)
+                    }
                 }
             }
         }

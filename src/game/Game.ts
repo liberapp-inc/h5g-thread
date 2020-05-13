@@ -37,7 +37,7 @@ const FONT_COLOR = 0xffffff;
 const FONT_COLOR2 = 0x000000;
 const PLAYER_COLOR = 0xe0e0e0;
 const OBJECT_COLOR = 0xc0c0c0;
-const COIN_COLOR = 0xffff00;
+const COIN_COLOR = 0xff80FF;
 const EFFECT_COLOR = 0xffffff;
 
 class Game {

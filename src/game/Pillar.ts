@@ -21,9 +21,9 @@ class Pillar extends PhysicsObject{
     static newPillar( px:number, py:number, type:PType, lv:number ){
         const w = Util.w( PILLAR_WIDTH_PER_W );
         const h = Util.w( GAME_AREA_H_PER_W );
-        const hole = Util.w( Util.lerp(PILLAR_HOLE_MAX_PW, PILLAR_HOLE_MIN_PW, lv) );
+        const hole = Util.w( Util.lerp(PILLAR_HOLE_MAX_PW, PILLAR_HOLE_MIN_PW, lv) ) * Player.speedCo;
         const yofs = (hole + h) * 0.5;
-        const o0 = new Pillar( px, py-yofs, w, h, OBJECT_COLOR, 1 );
+        const o0 = new Pillar( px, py-yofs, w, h, OBJECT_COLOR, 10 );
         const o1 = new Pillar( px, py+yofs, w, h, OBJECT_COLOR, 0 );
 
         const hd = Util.w(0.25);
@@ -103,9 +103,10 @@ class Pillar extends PhysicsObject{
     h:number;
     color:number;
     point:number;
+    effect:boolean = false;
     pass:boolean = false;
 
-    constructor( px:number, py:number, w:number, h:number, color:number, point:number ) {
+    constructor( px:number, py:number, w:number, h:number, color:number, point:number, effect:boolean=true ) {
         super();
 
         this.x = px;
@@ -114,6 +115,7 @@ class Pillar extends PhysicsObject{
         this.h = h;
         this.color = color;
         this.point = point;
+        this.effect = effect;
         this.setDisplay( px, py );
         this.setBody( px, py );
         this.display.rotation = this.body.angle * 180 / Math.PI;
@@ -154,13 +156,15 @@ class Pillar extends PhysicsObject{
             Score.I.addPoint( this.point );
             egret.Tween.removeTweens(this);
 
-            new EffectFrame( this.X, this.Y, this.w, this.h, EFFECT_COLOR, -Player.I.vx, 0 );
+            if( this.effect ){
+                new EffectFrame( this.X, this.Y, this.w, this.h, EFFECT_COLOR, -Player.I.vx, 0 );
 
-            for( let y=this.Y - this.h*0.5 ; y<=this.Y+this.h*0.5 ; y+=this.w*1.5 ){
-                let vx = this.w * randF( -0.2, +0.2 ) - Player.I.vx;
-                let vy = this.w * randF( -0.2, +0.2 );
-                let w = this.w * 0.5;
-                new EffectFrame( this.X, y, w, w, EFFECT_COLOR, vx, vy );
+                // for( let y=this.Y - this.h*0.5 ; y<=this.Y+this.h*0.5 ; y+=this.w*1.5 ){
+                //     let vx = this.w * randF( -0.2, +0.2 ) - Player.I.vx;
+                //     let vy = this.w * randF( -0.2, +0.2 );
+                //     let w = this.w * 0.5;
+                //     new EffectFrame( this.X, y, w, w, EFFECT_COLOR, vx, vy );
+                // }
             }
         }
         if( this.display.x + this.w < 0 ){
