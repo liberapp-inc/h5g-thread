@@ -90,9 +90,9 @@ class Pillar extends PhysicsObject{
             break;
             case PType.Narrow:
             egret.Tween.get(o0,{loop:false})
-                .to({y:o0.y+hole/4}, 0)
+                .to({y:o0.y+hole/3}, 0)
             egret.Tween.get(o1,{loop:false})
-                .to({y:o1.y-hole/4}, 0)
+                .to({y:o1.y-hole/3}, 0)
             break;
         }
     }

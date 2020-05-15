@@ -6,6 +6,7 @@ class Score extends GameObject{
     static I:Score = null;   // singleton instance
 
     point:number = 0;
+    combo:number = 0;
     bestScore:number = 0;
     text:egret.TextField = null;
     textBest:egret.TextField = null;
@@ -40,5 +41,12 @@ class Score extends GameObject{
         if( this.bestScore < this.point ){
             this.textBest.text = "BEST:" + this.point.toFixed();
         }
+    }
+
+    addCombo(){
+        this.combo++;
+    }
+    resetCombo(){
+        this.combo = 0;
     }
 }

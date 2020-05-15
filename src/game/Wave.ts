@@ -85,8 +85,7 @@ class Wave extends GameObject{
         Pillar.newPillar( px, py, type, Wave.hardRate );
         const w = Util.w(PILLAR_INTER_PER_W);
         this.waveX += w;
-
-        if( randBool(0.4) )
+        // if( randBool(0.4) )
             new Coin( px*w*0.5, py );
     }
 
@@ -129,7 +128,7 @@ class Wave extends GameObject{
     newBall(){
         let px = this.waveX;
         if( randBool() )
-            Ball.newBall( px, Wave.hardRate, 1, 3 );
+            Ball.newBall( px, Wave.hardRate, 1, 2 );
         else
             Ball.newBall( px, Wave.hardRate, 0, 4 );
         
@@ -157,9 +156,9 @@ class Wave extends GameObject{
     newBox(){
         let px = this.waveX;
         if( randBool() )
-            Box.newBox( px, Wave.hardRate, 1, 3 );
+            Box.newBox( px, Wave.hardRate, 1, 2 );
         else
-            Box.newBox( px, Wave.hardRate, 0, 6 );
+            Box.newBox( px, Wave.hardRate, 0, 5 );
         
         this.waveX += Util.w(PILLAR_INTER_PER_W);
         
