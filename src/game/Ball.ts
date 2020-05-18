@@ -3,7 +3,7 @@
 
 class Ball extends PhysicsObject{
 
-    static newBall( px:number, lv:number, sizeRate:number, count:number=2 ){
+    static newBall( px:number, lv:number, sizeRate:number, rand:Random, count:number=2 ){
         
         const w = Util.w( PILLAR_INTER_PER_W );
         const minR = Util.w( BALL_MIN_RADIUS_PER_W );
@@ -11,23 +11,23 @@ class Ball extends PhysicsObject{
         px += maxR;
         const ms = 1500 / Player.speedCo;    //speed
         for( let i=0 ; i<count ; i++ ){
-            let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * randF(-0.5, +0.5) );
-            let r = Util.lerp( minR, maxR, rand01() * sizeRate );
-            let o = new Ball( px+randF(0,w), y, r, OBJECT_COLOR, 3 );
-            if( randBool( 1/4 * lv ) )
+            let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * rand.f(-0.5, +0.5) );
+            let r = Util.lerp( minR, maxR, rand.f01() * sizeRate );
+            let o = new Ball( px+rand.f(0,w), y, r, OBJECT_COLOR, 3 );
+            if( rand.bool( 1/4 * lv ) )
             {
-                let angle = randF(0,Math.PI);
+                let angle = rand.f(0,Math.PI);
                 let moveW = Util.w(0.25) * Math.cos(angle);
                 let moveH = Util.w(0.25) * Math.sin(angle);
                 
-                if( randBool(0.5*Wave.hardRate) )   //loop
+                if( rand.bool(0.5*Wave.hardRate) )   //loop
                 {
                     egret.Tween.get(o,{loop:true})
                         .to({y:o.y+moveH, x:o.x+moveW}, ms)
                         .to({y:o.y, x:o.x}, ms)
                 }
                 else{
-                    if( randBool() ){
+                    if( rand.bool() ){
                         egret.Tween.get(o,{loop:false}) .to({y:o.y+moveH, x:o.x+moveW}, ms)
                     }
                 }

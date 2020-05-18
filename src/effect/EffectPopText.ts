@@ -28,6 +28,7 @@ class EffectPopText extends GameObject{
 
     update() {
         this.text.y -= 0.5;
+        this.text.x -= 1.0;
         this.time--;
         if( this.time <= 0 ){
             this.destroy();

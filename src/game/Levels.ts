@@ -1,46 +1,30 @@
-// Liberapp 2019 - Tahiti Katagai
-// ブロック生成
+// Liberapp 2020 - Tahiti Katagai
+// ランダムレベル生成
 
-class Wave extends GameObject{
+class Levels extends GameObject{
 
     static hardRate:number;
 
-    static levelSeeds:number[] = [ 0,
-        1, 2, 3, 4, 5,
-        6, 7, 8, 9, 10,
-        11,12,13,14,15,
-        16,17,18,19,20,
-        21,22,23,24,25,
-        26,27,28,29,30,
-         ];
-
+    rand:Random;
     waveX:number;
     count:number = 0;
-    goalCount:number = 0;
     modeCount:number = 4;
     topSpeed:number = 1.4;
     endInterval:number = 2;
 
-    rand:Random;
     state:()=>void = null;
 
-    constructor(level:number) {
+    constructor(seed:number, endless:boolean) {
         super();
+        this.rand = new Random(seed);
         Wave.hardRate = 0;
         Cave.prevPy0 = Util.h(0.5) - Util.w(GAME_AREA_H_PER_W*0.3);
         Cave.prevPy1 = Util.h(0.5) + Util.w(GAME_AREA_H_PER_W*0.3);
         this.waveX = Util.w(1);
-        Player.speedCo = 1;
 
-        if( level == 0 ){
-            this.rand = new Random();
+        Player.speedCo = 1;
+        if( endless )
             this.setStatePillar();
-        }
-        else{
-            this.rand = new Random( Wave.levelSeeds[level] );
-            this.count = level;
-            this.goalCount = this.count + 20 + level/4;
-        }
     }
 
     update() {
@@ -68,22 +52,8 @@ class Wave extends GameObject{
 
             this.count++;
             this.modeCount--;
-            if( this.goalCount == 0 ){
-                this.state();
-            }
-            else{
-                this.goalCount--;
-                if( this.goalCount >= 3 ){
-                    this.state();
-                }
-                else if( this.goalCount <= 0 ){
-                    // level clear
-                    PhysicsObject.deltaScale = 0.1;
-                    egret.Tween.removeAllTweens();
-                    Player.I.setStateNone();
-                }
-            }
-
+            this.state();
+            
             if( this.modeCount <= 0 ){
                 this.waveX += Util.w(PILLAR_INTER_PER_W) * this.endInterval;   // 終わりには間隔が必要
             }
@@ -201,5 +171,3 @@ class Wave extends GameObject{
         }
     }
 }
-
-

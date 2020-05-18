@@ -3,8 +3,8 @@
 
 const BoardName = "board1";
 
-// ローカルデバッグ用　　AppKeyがnullならローカルデバッグ無効
-// const AppKey = null;
+// ローカルデバッグ用
+const LocalDebug = false;
 const AppKey   = "afba5f6b-2d7f-49cc-b07e-f8a8fde628d3";
 const AppToken = "5268833a-83af-49e7-85d0-e205d2507b44";
 const AppUser  = "0508280e-a343-411f-91a3-a9f949824672";
@@ -24,7 +24,7 @@ class SdkUtil{
 
         try {
             // ローカルデバッグ
-            if( AppKey )
+            if( LocalDebug )
                 await SdkUtil.sdk.enableDebug({ applicationKey: AppKey, debugSigninOptions: { accessToken: AppToken, userAkey: AppUser } });
             
             await SdkUtil.sdk.initializeAsync();

@@ -8,7 +8,7 @@ class GameOver extends GameObject{
     step:number = 0;
     readonly fadeInFrame:number = 64;
 
-    constructor() {
+    constructor( level:number=0 ) {
         super();
 
         this.texts[0] = Util.newTextField("SCORE : " + Score.I.point.toFixed(), Util.width / 12, FONT_COLOR, 0.5, 0.35, true, false);
@@ -16,6 +16,11 @@ class GameOver extends GameObject{
             .to({alpha:0}, 0)
             .to({alpha:1}, 1000)
         GameObject.gameDisplay.addChild( this.texts[0] );
+
+        if( level > 0 ){
+            this.texts[1] = Util.newTextField("レベル" + level + "クリア", Util.width / 12, FONT_COLOR, 0.5, 0.35, true, false);
+            GameObject.gameDisplay.addChild( this.texts[1] );
+        }
         
         // New record
         if( Score.I.point > Score.I.bestScore ){

@@ -36,14 +36,14 @@ class Coin extends PhysicsObject{
     }
 
     fixedUpdate() {
-        Camera2D.transform( this.display );
-
         this.body.velocity[0] *= 0.1;
         this.body.velocity[1] *= 0.1;
         const center = Util.h( 0.5 );
         const h05 = Util.w(GAME_AREA_H_PER_W*0.45);
         this.py = Util.clamp( this.py, center-h05, center+h05);
 
+        Camera2D.transform( this.display );
+        
         // プレイヤーとの接触
         if( this.isPicked() )
             return;
@@ -63,7 +63,7 @@ class Coin extends PhysicsObject{
             Score.I.addPoint(point);
 
             new EffectPopText( "+" + point, this.display.x, this.display.y, 30, FONT_COLOR );
-            new EffectCircle( this.X, this.Y, this.radius*1.5, COIN_COLOR, -Player.I.vx, 0 );
+            new EffectCircle( this.X, this.Y, this.radius*2, COIN_COLOR, -Player.I.vx, 0 );
             this.destroy();
             return true;
         }

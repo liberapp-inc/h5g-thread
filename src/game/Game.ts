@@ -45,7 +45,7 @@ class Game {
     static loadSceneGamePlay() {
         PhysicsObject.deltaScale = 1;
         new Player( Util.w(0.3), Util.h(0.5) );
-        new Wave();
+        new Wave( randInt(), true );
         new StartMessage();
         new BackGround();
         new Score();

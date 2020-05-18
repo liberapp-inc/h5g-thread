@@ -3,7 +3,7 @@
 
 class Box extends PhysicsObject{
 
-    static newBox( px:number, lv:number, sizeRate:number, count:number=2 ){
+    static newBox( px:number, lv:number, sizeRate:number, rand:Random, count:number=2 ){
         
         const w = Util.w( PILLAR_INTER_PER_W );
         const minS = Util.w( BOX_MIN_SIZE_PER_W );
@@ -12,12 +12,12 @@ class Box extends PhysicsObject{
         const hd = Util.w(0.25);
         const ms = 1500 / Player.speedCo;    //speed
         for( let i=0 ; i<count ; i++ ){
-            let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * randF(-0.5, +0.5) );
-            let s = Util.lerp( minS, maxS, rand01() * sizeRate );
-            let o = new Box( px+randF(0,w), y, s, OBJECT_COLOR, 3 );
-            if( randBool( 1/4 * lv ) )
+            let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * rand.f(-0.5, +0.5) );
+            let s = Util.lerp( minS, maxS, rand.f01() * sizeRate );
+            let o = new Box( px+rand.f(0,w), y, s, OBJECT_COLOR, 3 );
+            if( rand.bool( 1/4 * lv ) )
             {
-                if( randBool(0.5*Wave.hardRate) )   //loop
+                if( rand.bool(0.5*Wave.hardRate) )   //loop
                 {
                     if( y < Util.h(0.5) ){
                         egret.Tween.get(o,{loop:true})
@@ -30,7 +30,7 @@ class Box extends PhysicsObject{
                     }
                 }
                 else{
-                    if( randBool() ){
+                    if( rand.bool() ){
                         egret.Tween.get(o,{loop:false}) .to({y:o.y-hd}, ms)
                     }else{
                         egret.Tween.get(o,{loop:false}) .to({y:o.y+hd}, ms)

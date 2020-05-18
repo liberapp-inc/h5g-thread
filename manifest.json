@@ -19,6 +19,7 @@
 		"bin-debug/game/Cave.js",
 		"bin-debug/game/Coin.js",
 		"bin-debug/game/Game.js",
+		"bin-debug/game/Levels.js",
 		"bin-debug/Main.js",
 		"bin-debug/effect/EffectCircle.js",
 		"bin-debug/game/Wave.js",
