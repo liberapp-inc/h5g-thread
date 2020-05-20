@@ -14,21 +14,23 @@ class Wave extends GameObject{
         26,27,28,29,30,
          ];
 
+    level:number;
     waveX:number;
     count:number = 0;
     goalCount:number = 0;
-    modeCount:number = 4;
-    topSpeed:number = 1.4;
+    modeCount:number = 0;
     endInterval:number = 2;
 
     rand:Random;
-    state:()=>void = null;
+    state:()=>void = this.stateNone;
 
+    // level = レベル番号 0＝エンドレス
     constructor(level:number) {
         super();
         Wave.hardRate = 0;
         Cave.prevPy0 = Util.h(0.5) - Util.w(GAME_AREA_H_PER_W*0.3);
         Cave.prevPy1 = Util.h(0.5) + Util.w(GAME_AREA_H_PER_W*0.3);
+        this.level = level;
         this.waveX = Util.w(1);
         Player.speedCo = 1;
 
@@ -38,8 +40,8 @@ class Wave extends GameObject{
         }
         else{
             this.rand = new Random( Wave.levelSeeds[level] );
-            this.count = level;
-            this.goalCount = this.count + 20 + level/4;
+            this.count = level*2;
+            this.goalCount = 12 + level/4;
         }
     }
 
@@ -48,14 +50,39 @@ class Wave extends GameObject{
 
         if( Player.I.x + Util.w(2/3) >= this.waveX ){
 
+            this.count++;
+            this.modeCount--;
+
+            if( this.level > 0 ){
+                this.goalCount--;
+                if( this.goalCount <= 3 ){
+                    this.waveX += Util.w(PILLAR_INTER_PER_W);
+                    if( this.goalCount <= 0 ){
+                        new GameOver( this.level );
+                        PhysicsObject.deltaScale = 0.0;
+                        egret.Tween.removeAllTweens();
+                        this.setStateNone();
+                        Player.I.setStateNone();
+                    }
+                    return;
+                }
+            }
+
             if( this.modeCount <= 0 ){
-                if( this.rand.bool( 1/2 ) && Player.speedCo <= 1 ){
-                    Player.speedCo = this.topSpeed;
-                    this.topSpeed = Util.clamp( this.topSpeed + 0.1, 0, 2.5 );
+
+                if( this.endInterval > 0 ){
+                    this.waveX += Util.w(PILLAR_INTER_PER_W) * this.endInterval;   // 終わりには間隔が必要
+                    this.endInterval = 0;
+                    return;
+                }
+
+                // hard rate & speed
+                Wave.hardRate = Util.clamp( this.count/200, 0, 1 );
+                if( this.rand.bool( 1/2 ) && Player.speedCo <= 1 && this.state != this.stateNone ){
+                    Player.speedCo = Util.lerp( MIN_SPEED_CO, MAX_SPEED_CO, Wave.hardRate );
                     Wave.hardRate = Util.clamp( Wave.hardRate - 0.25, 0, 1 );
                 }else{
                     Player.speedCo = 1.0;
-                    Wave.hardRate = Util.clamp( this.count/20, 0, 1 );
                 }
 
                 switch( this.rand.i( 0, 3+1 ) ){
@@ -65,28 +92,8 @@ class Wave extends GameObject{
                     case 3: this.setStateBox();     break;
                 }
             }
-
-            this.count++;
-            this.modeCount--;
-            if( this.goalCount == 0 ){
-                this.state();
-            }
-            else{
-                this.goalCount--;
-                if( this.goalCount >= 3 ){
-                    this.state();
-                }
-                else if( this.goalCount <= 0 ){
-                    // level clear
-                    PhysicsObject.deltaScale = 0.1;
-                    egret.Tween.removeAllTweens();
-                    Player.I.setStateNone();
-                }
-            }
-
-            if( this.modeCount <= 0 ){
-                this.waveX += Util.w(PILLAR_INTER_PER_W) * this.endInterval;   // 終わりには間隔が必要
-            }
+            
+            this.state();
         }
     }
 

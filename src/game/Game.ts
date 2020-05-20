@@ -3,12 +3,15 @@
 
 const SaveKeyBestScore = "thread-bestScore";
 const DefaultBestScore = 10;
+const SaveKeyNextLevel = "thread-nextLevel";
 
 const PIXEL_PER_METER = 1;
 const GAME_AREA_H_PER_W = 1.2;      // fixedWidth 100x120 (width基準)
 const THREAD_WIDTH_PER_W = 1/256;
 const PLAYER_SPEED_PER_W = 1/180;
 const RISE_POWER_PER_W = (1/2000);
+const MAX_SPEED_CO = 2.0;
+const MIN_SPEED_CO = 1.4;
 
 const PILLAR_WIDTH_PER_W = 1/32;
 const PILLAR_INTER_PER_W = 1/2;
@@ -41,13 +44,5 @@ const COIN_COLOR = 0xff80FF;
 const EFFECT_COLOR = 0xffffff;
 
 class Game {
-
-    static loadSceneGamePlay() {
-        PhysicsObject.deltaScale = 1;
-        new Player( Util.w(0.3), Util.h(0.5) );
-        new Wave( randInt(), true );
-        new StartMessage();
-        new BackGround();
-        new Score();
-    }
+    public static level:number = 0;
 }

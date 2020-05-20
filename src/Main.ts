@@ -10,14 +10,13 @@ class Main extends eui.UILayer {
  
     private async addToStage() {
 
-        // new SdkUtil();
-        // await SdkUtil.I.init();
-
         Util.initial( this );
         GameObject.initial( this.stage );
         PhysicsObject.prepare( PIXEL_PER_METER );
         Camera2D.initial();
-        Game.loadSceneGamePlay();
+        await Social.init();
+        // await SdkUtil.I.init();
+        SceneTitle.loadScene();
         egret.startTick(this.tickLoop, this);
     }
 

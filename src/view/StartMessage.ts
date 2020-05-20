@@ -8,7 +8,7 @@ class StartMessage extends GameObject{
     constructor() {
         super();
 
-        this.texts[0] = Util.newTextField("糸の冒険", Util.width / 12, FONT_COLOR, 0.5, 0.25, true, false);
+        // this.texts[0] = Util.newTextField("糸の冒険", Util.width / 12, FONT_COLOR, 0.5, 0.25, true, false);
         this.texts[1] = Util.newTextField("タッチ中は上昇", Util.width / 19, FONT_COLOR, 0.5, 0.35, true, false);
         this.texts[2] = Util.newTextField("ぶつからないように進め", Util.width / 19, FONT_COLOR, 0.5, 0.4, true, false);
         this.texts.forEach( text =>{ GameObject.gameDisplay.addChild( text ); });

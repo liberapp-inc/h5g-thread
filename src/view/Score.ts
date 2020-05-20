@@ -5,9 +5,11 @@ class Score extends GameObject{
 
     static I:Score = null;   // singleton instance
 
+    static bestScore: number = 0;
+    static bestRank: number | undefined;
+
     point:number = 0;
     combo:number = 0;
-    bestScore:number = 0;
     text:egret.TextField = null;
     textBest:egret.TextField = null;
 
@@ -19,9 +21,9 @@ class Score extends GameObject{
         this.text = Util.newTextField("0", Util.width / 16, FONT_COLOR2, 0.5, 0.0, true, true);
         GameObject.gameDisplay.addChild( this.text );
 
-        let bestScore = Util.getSaveDataNumber( SaveKeyBestScore, DefaultBestScore );
-        this.bestScore = bestScore;
-        this.textBest = Util.newTextField("BEST:" + bestScore, Util.width / 24, FONT_COLOR2, 1.0, 0.0, true, true);
+        // let bestScore = Util.getSaveDataNumber( SaveKeyBestScore, DefaultBestScore );
+        // this.bestScore = bestScore;
+        this.textBest = Util.newTextField("BEST:" + Score.bestScore, Util.width / 24, FONT_COLOR2, 1.0, 0.0, true, true);
         GameObject.gameDisplay.addChild( this.textBest );
     }
     
@@ -38,7 +40,7 @@ class Score extends GameObject{
     addPoint( point:number=1 ){
         this.point += point;
         this.text.text = "" + this.point.toFixed();
-        if( this.bestScore < this.point ){
+        if( Score.bestScore < this.point ){
             this.textBest.text = "BEST:" + this.point.toFixed();
         }
     }

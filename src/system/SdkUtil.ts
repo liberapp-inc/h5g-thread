@@ -1,6 +1,6 @@
 // Liberapp 2020 Tahiti Katagai
 // LiberappSDK 便利くん
-
+/*
 const BoardName = "board1";
 
 // ローカルデバッグ用
@@ -90,6 +90,6 @@ class SdkUtil{
         }
     }
 }
-
+*/
 
 
