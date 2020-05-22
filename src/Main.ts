@@ -1,6 +1,8 @@
 // Thread
 // Liberapp 2019 - Tahiti Katagai
 
+const SDK = false;
+
 class Main extends eui.UILayer {
 
     public constructor() {
@@ -14,8 +16,9 @@ class Main extends eui.UILayer {
         GameObject.initial( this.stage );
         PhysicsObject.prepare( PIXEL_PER_METER );
         Camera2D.initial();
-        await Social.init();
-        // await SdkUtil.I.init();
+        if( SDK ){
+            await Social.init();
+        }
         SceneTitle.loadScene();
         egret.startTick(this.tickLoop, this);
     }

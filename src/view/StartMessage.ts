@@ -13,7 +13,7 @@ class StartMessage extends GameObject{
         this.texts[2] = Util.newTextField("ぶつからないように進め", Util.width / 19, FONT_COLOR, 0.5, 0.4, true, false);
         this.texts.forEach( text =>{ GameObject.gameDisplay.addChild( text ); });
 
-        GameObject.gameDisplay.once(egret.TouchEvent.TOUCH_BEGIN, this.tap, this);
+        GameObject.gameDisplay.once(egret.TouchEvent.TOUCH_BEGIN, this.tap, this);  タップしてもthis.tap()よばれない
     }
 
     onDestroy(){

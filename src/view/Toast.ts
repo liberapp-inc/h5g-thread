@@ -17,23 +17,22 @@ class Toast extends GameObject  {
 
   update(){
   }
-  
+
   public static show(poptions: Partial<ToastOptions>): void {
     const options : ToastOptions = { ...DefaultToastOptions, ... poptions };
     if (!this.I) {
-      this.I = new Toast(Main.I.stage.width * 0.6);
+      this.I = new Toast(Util.width * 0.6);
     }
     this.I.show(options);
   }
 
-  public static destory() {
-    const i = this.I;
-    this.I = undefined;
+  onDestory() {
+    const i = Toast.I;
+    Toast.I = undefined;
     if (!i) {
       return;
     }
     i.rect.removeChildren();
-    i.component.removeChildren();
     i.rect = undefined;
     i.label = undefined;
   }
@@ -45,7 +44,7 @@ class Toast extends GameObject  {
   private queue: ToastOptions[] = [];
 
   private constructor(maxWidth:number) {
-    super(0,0,0,0);
+    super();
 
     this.rect = new eui.Rect();
     this.rect.alpha = 0;
@@ -55,7 +54,7 @@ class Toast extends GameObject  {
 
     this.rect.addEventListener(eui.UIEvent.CREATION_COMPLETE, this.onRectCreationComplete, this);
     this.label.addEventListener(eui.UIEvent.RESIZE, this.onLabelResized, this);
-    this.component.addChild(this.rect);    
+    GameObject.baseDisplay.addChild(this.rect);    
   }
 
   public show(options:ToastOptions) : void {

@@ -1,49 +1,107 @@
-// Liberapp 2019 - Tahiti Katagai
+// Liberapp 2020 - Tahiti Katagai
 // 汎用ボタン
 
 class Button extends GameObject{
 
     text:egret.TextField = null;
-    onTap:()=>void = null;
+
+    onTap:(btn:Button)=>void = null;
+    thisObject:any = null;
+    keyId:number = 0;
+
+    lineRgb:number;
+    rgb:number;
+    alpha:number;
+    xr:number;
+    yr:number;
+    wr:number;
+    hr:number;
+
+    fontSize:number;
+    fontRgb:number;
 
     press:boolean = false;
     touch:boolean = false;
     x:number = 0;
     y:number = 0;
 
-    constructor( text:string, fontsize:number, fontRGB:number, xRatio:number, yRatio:number, wRatio:number, hRatio:number, rgb:number, alpha:number, onTap:()=>void ) {
+    constructor( text:string, fontsize:number, fontRgb:number, xRatio:number, yRatio:number, wRatio:number, hRatio:number, rgb:number, alpha:number, lineRgb:number, bold:boolean, onTap:(btn:Button)=>void, thisObject:any, id:number=0 ) {
         super();
 
-        let shape = new egret.Shape();
-        GameObject.gameDisplay.addChild(shape);
-        shape.graphics.beginFill( rgb, alpha );
-        let w = wRatio * Util.width;
-        let h = hRatio * Util.height;
-        shape.graphics.drawRoundRect(-0.5*w, -0.5*h, w, h, w*0.2);
-        shape.graphics.endFill();
-        shape.touchEnabled = true;
-        shape.x = xRatio * Util.width;
-        shape.y = yRatio * Util.height;
-        this.display = shape;
+        this.lineRgb = lineRgb;
+        this.rgb = rgb;
+        this.alpha = alpha;
+        this.xr = xRatio;
+        this.yr = yRatio;
+        this.wr = wRatio;
+        this.hr = hRatio;
+
+        this.fontSize = fontsize;
+        this.fontRgb = fontRgb;
+
+        this.setDisplay( lineRgb, rgb, alpha, xRatio, yRatio, wRatio, hRatio );
 
         if( text ){
-            this.text = Util.newTextField(text, fontsize, fontRGB, xRatio, yRatio, true, false);
-            GameObject.gameDisplay.addChild( this.text );
+            this.setText( text, true );
         }
         this.onTap = onTap;
-        if( this.onTap ) this.display.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this);
+        this.thisObject = thisObject;
+        this.keyId = id;
+        if( this.onTap ) this.display.addEventListener(egret.TouchEvent.TOUCH_TAP, (btn:Button)=>this.onTap(this), this.thisObject);
         this.display.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
         this.display.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
         this.display.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
     }
 
     onDestroy(){
-        if( this.onTap ) this.display.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTap, this);
-        GameObject.gameDisplay.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
-        GameObject.gameDisplay.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-        GameObject.gameDisplay.removeEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
+        if( this.onTap ) this.display.removeEventListener(egret.TouchEvent.TOUCH_TAP, (btn:Button)=>this.onTap(this), this.thisObject);
+        GameObject.baseDisplay.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
+        GameObject.baseDisplay.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+        GameObject.baseDisplay.removeEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
 
-        if( this.text ) GameObject.gameDisplay.removeChild( this.text );
+        if( this.text ) GameObject.baseDisplay.removeChild( this.text );
+    }
+
+    setDisplay( lineRgb:number, rgb:number, alpha:number, xr:number, yr:number, wr:number, hr:number ){
+        let shape = this.display as egret.Shape;
+        if( shape == null ){
+            this.display = shape = new egret.Shape();
+            GameObject.baseDisplay.addChild(shape);
+        }else{
+            shape.graphics.clear();
+        }
+        if( lineRgb>=0 )    shape.graphics.lineStyle( 2, lineRgb );
+        else                shape.graphics.lineStyle( 0 );
+        shape.graphics.beginFill( rgb, alpha );
+        let w = wr * Util.width;
+        let h = hr * Util.height;
+        shape.graphics.drawRoundRect(-0.5*w, -0.5*h, w, h, h*0.4);
+        shape.graphics.endFill();
+        shape.touchEnabled = true;
+        shape.x = xr * Util.width;
+        shape.y = yr * Util.height;
+        this.display = shape;
+    }
+    setColor( rgb:number ){
+        this.setDisplay( this.lineRgb, rgb, this.alpha, this.xr, this.yr, this.wr, this.hr );
+    }
+
+    setText( text:string, bold:boolean ){
+        if( this.text == null ){
+            this.text = Util.newTextField(text, this.fontSize, this.fontRgb, this.xr, this.yr, bold, false);
+            GameObject.baseDisplay.addChild( this.text );
+        }
+        else{
+            let tf = this.text;
+            this.text.text = text;
+            tf.x = Util.width  * this.xr - tf.width  * 0.5;
+            tf.y = Util.height * this.yr - tf.height * 0.5;
+        }
+    }
+    setTextColor( color:number ){
+        if( this.text ){
+            this.text.textColor = color;
+        }
     }
 
     update() {

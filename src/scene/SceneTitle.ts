@@ -6,6 +6,8 @@ class SceneTitle extends GameObject{
     texts:egret.TextField[] = [];
     startButton:Button = null;
     levelButton:Button = null;
+    levelButtonP:Button = null;
+    levelButtonM:Button = null;
     settingsButton:Button = null;
 
     static loadScene() {
@@ -29,10 +31,17 @@ class SceneTitle extends GameObject{
         this.texts[3] = Util.newTextField("自己ベスト:"+bestScore+"", Util.width / 16, FONT_COLOR, 0.5, 0.35, true, true);
 
         // エンドレスモード
-        this.startButton = new Button("スタート", Util.width/16, BACK_COLOR, 0.50, 0.70, 0.7, 0.12, FONT_COLOR, 1.0, this.onTapStart );
+        // this.startButton = new Button("スタート", Util.width/16, BACK_COLOR, 0.50, 0.65, 0.6, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
+
+        // エンドレスモード
+        this.startButton = new Button("スタート", Util.width/16, BACK_COLOR, 0.50, 0.65, 0.6, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
         // レベルモード
-        // let level = Util.getSaveDataNumber( SaveKeyNextLevel, 1 );
-        // this.levelButton = new Button("レベル"+level, Util.width/16, BACK_COLOR, 0.50, 0.70, 0.7, 0.12, FONT_COLOR, 1.0, this.onTapStart );
+        if( Game.level == 0 ){
+            Game.level = Util.clamp( Game.level + 1, 1, Util.getSaveDataNumber( SaveKeyNextLevel, 1 ) );
+        }
+        this.levelButton = new Button("レベル"+Game.level, Util.width/16, BACK_COLOR, 0.50, 0.80, 0.4, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
+        this.levelButtonP = new Button("+", Util.width/16, BACK_COLOR, 0.85, 0.80, 0.15, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
+        this.levelButtonM = new Button("-", Util.width/16, BACK_COLOR, 0.15, 0.80, 0.15, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
 
         this.texts.forEach( text =>{ if( text ){ GameObject.baseDisplay.addChild( text ); } });
     }
@@ -45,13 +54,19 @@ class SceneTitle extends GameObject{
 	update(){
 	}
 
-    onTapStart(){
+    onTapStart( btn:Button ){
         GameObject.transit = ScenePlay.loadScene;
         Game.level = 0;
     }
-    onTapLevel(){
+    onTapLevel( btn:Button ){
         GameObject.transit = ScenePlay.loadScene;
-        Game.level = Util.getSaveDataNumber( SaveKeyNextLevel, 1 );
     }
-
+    onTapLevelP( btn:Button ){
+        Game.level = Util.clamp( Game.level + 1, 1, Util.getSaveDataNumber( SaveKeyNextLevel, 1 ) );
+        this.levelButton.text.text = "レベル" + Game.level;
+    }
+    onTapLevelM( btn:Button ){
+        Game.level = Util.clamp( Game.level - 1, 1, Util.getSaveDataNumber( SaveKeyNextLevel, 1 ) );
+        this.levelButton.text.text = "レベル" + Game.level;
+    }
 }

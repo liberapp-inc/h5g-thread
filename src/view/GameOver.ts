@@ -26,10 +26,8 @@ class GameOver extends GameObject{
         }
         
         // New record
-        if( Score.I.point > Score.I.bestScore ){
-            Util.setSaveDataNumber( SaveKeyBestScore, Score.I.point );
-            if( SdkUtil.I )
-                SdkUtil.I.sendScore( Score.I.point );
+        if( SDK && Score.I.point > Score.bestScore && this.level == 0 ){
+            Social.setScore( Score.I.point );
         }
     }
 
@@ -41,10 +39,12 @@ class GameOver extends GameObject{
     update() {
         this.step++;
         if( this.step == this.fadeInFrame ){
-            this.retryButton = new Button("リトライ", Util.width/16, BACK_COLOR, 0.50, 0.75, 0.4, 0.1, FONT_COLOR, 1.0, this.onTapRetry );
-            this.backButton  = new Button("終了", Util.width/18, BACK_COLOR, 0.1, 0.1, 0.2, 0.075, FONT_COLOR, 1.0, this.onTapBack );
+            if( this.level == 0 ){
+                this.retryButton = new Button("リトライ", Util.width/16, BACK_COLOR, 0.50, 0.75, 0.4, 0.1, FONT_COLOR, 1.0, 0, true, this.onTapRetry, this );
+            }
+            this.backButton  = new Button("終了", Util.width/18, BACK_COLOR, 0.1, 0.1, 0.2, 0.075, FONT_COLOR, 1.0, 0, true, this.onTapBack, this );
             
-            if( Score.I.point > Score.I.bestScore && this.level == 0 ){
+            if( Score.I.point > Score.bestScore && this.level == 0 ){
                 this.texts[1] = Util.newTextField("NEW RECORD!", Util.width / 13, FONT_COLOR, 0.5, 0.40, true, false);
                 egret.Tween.get(this.texts[1],{loop:true})
                     .to({alpha:0}, 500)
@@ -55,6 +55,7 @@ class GameOver extends GameObject{
      }
 
     onTapBack(){
+        Game.level = 0;
         GameObject.transit = SceneTitle.loadScene;
         this.destroy();
     }

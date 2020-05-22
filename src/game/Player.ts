@@ -40,7 +40,7 @@ class Player extends PhysicsObject{
         this.scrollCamera();
         this.setDisplay( px, py );
         this.setBody( px, py );
-        this.button = new Button( null, 0, 0, 0.5, 0.5, 1, 1, 0x000000, 0.0, null ); // 透明な全画面ボタン
+        this.button = new Button( null, 0, 0, 0.5, 0.5, 1, 1, 0x000000, 0.0, -1, false, null, null ); // 透明な全画面ボタン
     }
 
     onDestroy(){

@@ -21,8 +21,6 @@ class Score extends GameObject{
         this.text = Util.newTextField("0", Util.width / 16, FONT_COLOR2, 0.5, 0.0, true, true);
         GameObject.gameDisplay.addChild( this.text );
 
-        // let bestScore = Util.getSaveDataNumber( SaveKeyBestScore, DefaultBestScore );
-        // this.bestScore = bestScore;
         this.textBest = Util.newTextField("BEST:" + Score.bestScore, Util.width / 24, FONT_COLOR2, 1.0, 0.0, true, true);
         GameObject.gameDisplay.addChild( this.textBest );
     }

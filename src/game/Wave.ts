@@ -39,7 +39,7 @@ class Wave extends GameObject{
             this.setStatePillar();
         }
         else{
-            this.rand = new Random( Wave.levelSeeds[level] );
+            this.rand = new Random( Wave.levelSeeds[level] + 0xA0311 );
             this.count = level*2;
             this.goalCount = 12 + level/4;
         }
@@ -59,6 +59,10 @@ class Wave extends GameObject{
                     this.waveX += Util.w(PILLAR_INTER_PER_W);
                     if( this.goalCount <= 0 ){
                         new GameOver( this.level );
+                        let level = Util.getSaveDataNumber( SaveKeyNextLevel, 1 );
+                        if( level == this.level ){
+                            Util.setSaveDataNumber( SaveKeyNextLevel, level + 1 );
+                        }
                         PhysicsObject.deltaScale = 0.0;
                         egret.Tween.removeAllTweens();
                         this.setStateNone();
