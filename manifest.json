@@ -20,6 +20,7 @@
 		"bin-debug/game/Coin.js",
 		"bin-debug/game/Game.js",
 		"bin-debug/Main.js",
+		"bin-debug/game/PillarAngle.js",
 		"bin-debug/game/Player.js",
 		"bin-debug/game/Wave.js",
 		"bin-debug/effect/EffectCircle.js",

@@ -115,6 +115,12 @@ class Wave extends GameObject{
         }else{
             this.modeCount = 4;
         }
+        if( Wave.hardRate >= 0.5 && this.rand.bool( Wave.hardRate/2 ) ){
+            PillarAngle.updateAngle();
+            this.angled = true;
+        }else{
+            this.angled = false;
+        }
     }
     statePillar(){
         this.newPillar();
@@ -126,12 +132,16 @@ class Wave extends GameObject{
         if( this.rand.bool( 0.8 * Wave.hardRate ) ){    // 最大80%の確率で別タイプ生成
             type = this.rand.i(PType.Normal, PType.Total);
         }
-        Pillar.newPillar( px, py, type, Wave.hardRate );
+        if( this.angled == false )
+            Pillar.newPillar( px, py, type, Wave.hardRate );
+        else
+            PillarAngle.newPillar( px, py, type, Wave.hardRate );
         const w = Util.w(PILLAR_INTER_PER_W);
         this.waveX += w;
         if( this.rand.bool(0.25) )
             new Coin( px+w*0.5, py );
     }
+    angled:boolean = false;
 
 
     setStateCave(){
