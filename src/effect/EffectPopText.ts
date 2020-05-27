@@ -16,6 +16,7 @@ class EffectPopText extends GameObject{
         tf.textColor = color;
         tf.x = x;
         tf.y = y;
+        tf.alpha = 0.8;
         
         this.text = tf;
 

@@ -39,7 +39,9 @@ class Wave extends GameObject{
             this.setStatePillar();
         }
         else{
-            this.rand = new Random( Wave.levelSeeds[level] + 0xA0311 );
+            this.rand = new Random( Wave.levelSeeds[level] * 0xA0311 + 0x11be );
+            this.rand.int();
+            this.rand.int();
             this.count = level*2;
             this.goalCount = 12 + level/4;
         }
@@ -89,14 +91,14 @@ class Wave extends GameObject{
                     Player.speedCo = 1.0;
                 }
 
-                switch( this.rand.i( 0, 3+1 ) ){
+                switch( this.rand.i( 0, 4+1 ) ){
                     case 0: this.setStatePillar();  break;
                     case 1: this.setStateCave();    break;
                     case 2: this.setStateBall();    break;
                     case 3: this.setStateBox();     break;
+                    case 4: this.setStateSlopeBox();break;
                 }
             }
-            
             this.state();
         }
     }
@@ -115,7 +117,7 @@ class Wave extends GameObject{
         }else{
             this.modeCount = 4;
         }
-        if( Wave.hardRate >= 0.5 && this.rand.bool( Wave.hardRate/2 ) ){
+        if( Wave.hardRate >= 0.1 && this.rand.bool( Wave.hardRate/2 ) ){
             PillarAngle.updateAngle();
             this.angled = true;
         }else{
@@ -220,6 +222,41 @@ class Wave extends GameObject{
             let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * this.rand.f(-0.4, +0.4) );
             new Coin( px, y );
         }
+    }
+
+
+    setStateSlopeBox(){
+        this.state = this.stateSlopeBox;
+        this.endInterval = 3;
+        if( Player.speedCo <= 1 ){
+            this.modeCount = this.rand.i( 4, 16 );
+        }else{
+            this.modeCount = 4;
+        }
+    }
+    stateSlopeBox(){
+        this.newSlopeBox();
+    }
+    newSlopeBox(){
+        const span = Util.w(PILLAR_INTER_PER_W);
+        const px = this.waveX + span * 1.5;
+        const cy = Util.h( 0.5 );
+        const h05 = Util.w( GAME_AREA_H_PER_W ) * 0.5;
+        const s = Util.lerp( Util.w( SLOPE_MIN_SIZE_PER_W ), Util.w( SLOPE_MAX_SIZE_PER_W ), Wave.hardRate * randF(0.7,1) );
+        let ysign;
+
+        if( (this.modeCount % 2) == 0 )
+            ysign = -1;
+        else
+            ysign = +1;
+        
+        const py = cy + h05 * ysign;
+        new BoxSlope( px, py, s, OBJECT_COLOR, 10 );
+        
+        if( this.rand.bool(0.25) ){
+            new Coin( px + randF(-1, +1), py + 1 * -ysign );
+        }
+        this.waveX += span;
     }
 }
 

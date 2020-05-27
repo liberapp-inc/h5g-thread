@@ -30,7 +30,7 @@ class Coin extends PhysicsObject{
     }
     setBody( px:number, py:number ){
         this.body = new p2.Body( {gravityScale:0, mass:0.1, position:[this.p2m(px), this.p2m(py)] } );
-        this.body.addShape(new p2.Circle({ radius:this.p2m(this.radius), collisionGroup:PHYSICS_GROUP_PLAYER, collisionMask:PHYSICS_GROUP_OBSTACLE }));
+        this.body.addShape(new p2.Circle({ radius:this.p2m(this.radius*3), collisionGroup:PHYSICS_GROUP_PLAYER, collisionMask:PHYSICS_GROUP_OBSTACLE }));
         this.body.displays = [this.display];
         PhysicsObject.world.addBody(this.body);
     }
@@ -62,7 +62,7 @@ class Coin extends PhysicsObject{
             let point = 10 * Score.I.combo;
             Score.I.addPoint(point);
 
-            new EffectPopText( "+" + point, this.display.x, this.display.y, 30, FONT_COLOR );
+            new EffectPopText( "+" + point, this.display.x, this.display.y, 30, COIN_COLOR );
             new EffectCircle( this.X, this.Y, this.radius*2, COIN_COLOR, -Player.I.vx, 0 );
             this.destroy();
             return true;
@@ -74,10 +74,10 @@ class Coin extends PhysicsObject{
     isOutOfScreen():boolean{
         // 見逃し
         if( this.step == 0 ){
-            if( this.px + this.radius < Player.I.x - Player.I.radius ){
+            if( this.px + this.radius * 3 < Player.I.x - Player.I.radius ){
                 this.step = 1;
                 Score.I.resetCombo();
-                new EffectPopText( "MISS!", this.display.x, this.display.y, 30, FONT_COLOR );
+                new EffectPopText( "MISS!", this.display.x, this.display.y, 30, COIN_COLOR );
             }
         }
 

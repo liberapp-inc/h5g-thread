@@ -29,6 +29,9 @@ const BALL_MAX_RADIUS_PER_W = 1/5;
 const BOX_MIN_SIZE_PER_W = 1/16;
 const BOX_MAX_SIZE_PER_W = 1/3;
 
+const SLOPE_MIN_SIZE_PER_W = 0.8;
+const SLOPE_MAX_SIZE_PER_W = 1.06;
+
 const COIN_RADIUS_PER_W = 1/64;
 
 const PHYSICS_GROUP_PLAYER = 1<<1;
