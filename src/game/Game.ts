@@ -38,14 +38,22 @@ const PHYSICS_GROUP_PLAYER = 1<<1;
 const PHYSICS_GROUP_OBSTACLE = 1<<2;
 const PHYSICS_GRAVITY_PER_H = 0;
 
-const BACK_COLOR = 0x303030;    // index.htmlで設定
-const FONT_COLOR = 0xffffff;
-const FONT_COLOR2 = 0x000000;
 const PLAYER_COLOR = 0xe0e0e0;
-const OBJECT_COLOR = 0xc0c0c0;
+const FONT_COLOR = 0xffffff;
+const FONT_COLOR2 = 0x303030;
 const COIN_COLOR = 0xff80FF;
 const EFFECT_COLOR = 0xffffff;
 
+const BackColors:number[] = [ 0x303030, 0x283AE0, 0xBE2D4F, 0x433E40, 0x2E347A, 0x2E4548 ];
+const WallColors:number[] = [ 0xc0c0c0, 0xEDCA47, 0x68D4AA, 0xA8926A, 0xD1AA5C, 0xB3BEA6 ];
+
 class Game {
     public static level:number = 0;
+
+    public static bColor() : number {
+        return BackColors[ Game.level % BackColors.length ];
+    }
+    public static oColor() : number {
+        return WallColors[ Game.level % WallColors.length ];
+    }
 }

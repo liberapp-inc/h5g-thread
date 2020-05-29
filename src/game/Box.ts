@@ -14,7 +14,7 @@ class Box extends PhysicsObject{
         for( let i=0 ; i<count ; i++ ){
             let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * rand.f(-0.5, +0.5) );
             let s = Util.lerp( minS, maxS, rand.f01() * sizeRate );
-            let o = new Box( px+rand.f(0,w), y, s, OBJECT_COLOR, 3 );
+            let o = new Box( px+rand.f(0,w), y, s, Game.oColor(), 3 );
             if( rand.bool( 1/4 * lv ) )
             {
                 if( rand.bool(0.5*Wave.hardRate) )   //loop

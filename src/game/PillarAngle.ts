@@ -25,8 +25,8 @@ class PillarAngle extends Pillar{
         const hole = Util.w( Util.lerp(PILLAR_HOLE_MAX_PW, PILLAR_HOLE_MIN_PW, lv) ) * Player.speedCo;
         const xofs = (hole + h) * 0.5 * ux;
         const yofs = (hole + h) * 0.5 * uy;
-        const o0 = new PillarAngle( px-xofs, py-yofs, w, h, OBJECT_COLOR, 5 );
-        const o1 = new PillarAngle( px+xofs, py+yofs, w, h, OBJECT_COLOR, 5 );
+        const o0 = new PillarAngle( px-xofs, py-yofs, w, h, Game.oColor(), 5 );
+        const o1 = new PillarAngle( px+xofs, py+yofs, w, h, Game.oColor(), 5 );
 
         const wd = Util.w(0.25) * ux;
         const hd = Util.w(0.25) * uy;

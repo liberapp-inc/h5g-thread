@@ -13,7 +13,7 @@ class Ball extends PhysicsObject{
         for( let i=0 ; i<count ; i++ ){
             let y = Util.h(0.5) + Util.w( GAME_AREA_H_PER_W * rand.f(-0.5, +0.5) );
             let r = Util.lerp( minR, maxR, rand.f01() * sizeRate );
-            let o = new Ball( px+rand.f(0,w), y, r, OBJECT_COLOR, 3 );
+            let o = new Ball( px+rand.f(0,w), y, r, Game.oColor(), 3 );
             if( rand.bool( 1/4 * lv ) )
             {
                 let angle = rand.f(0,Math.PI);

@@ -34,17 +34,17 @@ class SceneTitle extends GameObject{
 
         if( !LevelSelect ){
             // エンドレスモードのみ
-            this.startButton = new Button("スタート", Util.width/16, BACK_COLOR, 0.50, 0.65, 0.6, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
+            this.startButton = new Button("スタート", Util.width/16, FONT_COLOR2, 0.50, 0.65, 0.6, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
         }else{
             // エンドレスモード
-            this.startButton = new Button("エンドレス", Util.width/16, BACK_COLOR, 0.50, 0.65, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
+            this.startButton = new Button("エンドレス", Util.width/16, FONT_COLOR2, 0.50, 0.65, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
             // レベルモード
             if( Game.level == 0 ){
                 Game.level = Util.getSaveDataNumber( SaveKeyNextLevel, 1 );
             }
-            this.levelButton = new Button("レベル"+Game.level, Util.width/16, BACK_COLOR, 0.50, 0.80, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
-            this.levelButtonP = new Button("+", Util.width/16, BACK_COLOR, 0.85, 0.80, 0.10, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
-            this.levelButtonM = new Button("-", Util.width/16, BACK_COLOR, 0.15, 0.80, 0.10, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
+            this.levelButton = new Button("レベル"+Game.level, Util.width/16, FONT_COLOR2, 0.50, 0.80, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
+            this.levelButtonP = new Button("+", Util.width/16, FONT_COLOR2, 0.85, 0.80, 0.10, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
+            this.levelButtonM = new Button("-", Util.width/16, FONT_COLOR2, 0.15, 0.80, 0.10, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
         }
 
         this.texts.forEach( text =>{ if( text ){ GameObject.baseDisplay.addChild( text ); } });

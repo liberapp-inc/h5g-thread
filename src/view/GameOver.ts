@@ -40,9 +40,9 @@ class GameOver extends GameObject{
         this.step++;
         if( this.step == this.fadeInFrame ){
             if( this.level == 0 ){
-                this.retryButton = new Button("リトライ", Util.width/16, BACK_COLOR, 0.50, 0.75, 0.4, 0.1, FONT_COLOR, 1.0, -1, true, this.onTapRetry, this );
+                this.retryButton = new Button("リトライ", Util.width/16, Game.bColor(), 0.50, 0.75, 0.4, 0.1, FONT_COLOR, 1.0, -1, true, this.onTapRetry, this );
             }
-            this.backButton  = new Button("終了", Util.width/18, BACK_COLOR, 0.1, 0.1, 0.2, 0.075, FONT_COLOR, 1.0, -1, true, this.onTapBack, this );
+            this.backButton  = new Button("終了", Util.width/18, Game.bColor(), 0.1, 0.1, 0.2, 0.075, FONT_COLOR, 1.0, -1, true, this.onTapBack, this );
             
             if( Score.I.point > Score.bestScore && this.level == 0 ){
                 this.texts[1] = Util.newTextField("NEW RECORD!", Util.width / 13, FONT_COLOR, 0.5, 0.40, true, false);
@@ -55,7 +55,7 @@ class GameOver extends GameObject{
      }
 
     onTapBack(){
-        Game.level = 0;
+        // Game.level = 0;
         GameObject.transit = SceneTitle.loadScene;
         this.destroy();
     }

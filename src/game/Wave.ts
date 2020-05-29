@@ -8,10 +8,12 @@ class Wave extends GameObject{
     static levelSeeds:number[] = [ 0,
         1, 2, 3, 4, 5,
         6, 7, 8, 9, 10,
-        11,12,13,14,15,
-        16,17,18,19,20,
-        21,22,23,24,25,
-        26,27,28,29,30,
+        // 11,12,13,14,15,
+        // 16,17,18,19,20,
+        // 21,22,23,24,25,
+        // 26,27,28,29,30,
+        // 31,32,33,34,35,
+        // 36,37,38,39,40,
          ];
 
     level:number;
@@ -39,8 +41,11 @@ class Wave extends GameObject{
             this.setStatePillar();
         }
         else{
-            this.rand = new Random( Wave.levelSeeds[level] * 0xA0311 + 0x11be );
-            this.rand.int();
+            let seed = level;
+            if( level < Wave.levelSeeds.length )
+            if( Wave.levelSeeds[ level ] != 0 )
+                seed = Wave.levelSeeds[ level ];
+            this.rand = new Random( seed * 573 + 765 );
             this.rand.int();
             this.count = level*2;
             this.goalCount = 12 + level/4;
@@ -55,6 +60,7 @@ class Wave extends GameObject{
             this.count++;
             this.modeCount--;
 
+            // クリア判定 (レベルモードのみ)
             if( this.level > 0 ){
                 this.goalCount--;
                 if( this.goalCount <= 3 ){
@@ -74,6 +80,7 @@ class Wave extends GameObject{
                 }
             }
 
+            // 次の展開
             if( this.modeCount <= 0 ){
 
                 if( this.endInterval > 0 ){
@@ -91,12 +98,14 @@ class Wave extends GameObject{
                     Player.speedCo = 1.0;
                 }
 
-                switch( this.rand.i( 0, 4+1 ) ){
+                const waveMax = Math.floor( Util.lerp( 3, 5, this.count/10 ) );
+                switch( this.rand.i( 0, waveMax+1 ) ){
                     case 0: this.setStatePillar();  break;
                     case 1: this.setStateCave();    break;
                     case 2: this.setStateBall();    break;
                     case 3: this.setStateBox();     break;
                     case 4: this.setStateSlopeBox();break;
+                    case 5: this.setStatePillar(1); break;
                 }
             }
             this.state();
@@ -109,7 +118,7 @@ class Wave extends GameObject{
     stateNone(){
     }
 
-    setStatePillar(){
+    setStatePillar( angle:number=0 ){
         this.state = this.statePillar;
         this.endInterval = 2;
         if( Player.speedCo <= 1 ){
@@ -117,7 +126,7 @@ class Wave extends GameObject{
         }else{
             this.modeCount = 4;
         }
-        if( Wave.hardRate >= 0.1 && this.rand.bool( Wave.hardRate/2 ) ){
+        if( angle != 0 ){
             PillarAngle.updateAngle();
             this.angled = true;
         }else{
@@ -251,7 +260,7 @@ class Wave extends GameObject{
             ysign = +1;
         
         const py = cy + h05 * ysign;
-        new BoxSlope( px, py, s, OBJECT_COLOR, 10 );
+        new BoxSlope( px, py, s, Game.oColor(), 10 );
         
         if( this.rand.bool(0.25) ){
             new Coin( px + randF(-1, +1), py + 1 * -ysign );

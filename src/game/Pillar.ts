@@ -23,8 +23,8 @@ class Pillar extends PhysicsObject{
         const h = Util.w( GAME_AREA_H_PER_W );
         const hole = Util.w( Util.lerp(PILLAR_HOLE_MAX_PW, PILLAR_HOLE_MIN_PW, lv) ) * Player.speedCo;
         const yofs = (hole + h) * 0.5;
-        const o0 = new Pillar( px, py-yofs, w, h, OBJECT_COLOR, 10 );
-        const o1 = new Pillar( px, py+yofs, w, h, OBJECT_COLOR, 0 );
+        const o0 = new Pillar( px, py-yofs, w, h, Game.oColor(), 10 );
+        const o1 = new Pillar( px, py+yofs, w, h, Game.oColor(), 0 );
 
         const hd = Util.w(0.25);
         const ms = 1000 / Player.speedCo;    //speed
