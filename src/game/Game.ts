@@ -3,7 +3,6 @@
 
 const SaveKeyBestScore = "thread-bestScore";
 const DefaultBestScore = 10;
-const SaveKeyNextLevel = "thread-nextLevel";
 
 const PIXEL_PER_METER = 1;
 const GAME_AREA_H_PER_W = 1.2;      // fixedWidth 100x120 (width基準)

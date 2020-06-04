@@ -127,6 +127,4 @@ class Toast extends GameObject  {
     this.rect.x = (Util.width - this.rect.width)/2;
     this.rect.y = (Util.height - this.rect.height)/2;
   }
-
-  updateContent() {}
 }

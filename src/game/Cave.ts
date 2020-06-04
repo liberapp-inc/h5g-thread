@@ -21,10 +21,10 @@ class Cave extends Pillar{
         const wadj = Util.w(1/256);
 
         const effect = false;
-        new Pillar( px+w*0.5, head, w+wadj, h, Game.oColor(), 1, effect );
-        new Pillar( px+w*0.5, foot, w+wadj, h, Game.oColor(), 0, effect );
-        new Pillar( px+w*1.5,  py0, w+wadj, h, Game.oColor(), 1, effect );
-        new Pillar( px+w*1.5,  py1, w+wadj, h, Game.oColor(), 0, effect );
+        new Pillar( px+w*0.5, head, w+wadj, h, Game.oColor(), 10, effect );
+        new Pillar( px+w*0.5, foot, w+wadj, h, Game.oColor(),  0, effect );
+        new Pillar( px+w*1.5,  py0, w+wadj, h, Game.oColor(), 10, effect );
+        new Pillar( px+w*1.5,  py1, w+wadj, h, Game.oColor(),  0, effect );
 
         Cave.prevPy0 = py0;
         Cave.prevPy1 = py1;

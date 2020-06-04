@@ -31,7 +31,7 @@ class Util{
     }
 
     static lerp( src:number, dst:number, rate01:number ){
-        return src + (dst-src) * rate01;
+        return src + (dst-src) * this.clamp01(rate01);
     }
 
     // 角度を-PI~+PI範囲で表現

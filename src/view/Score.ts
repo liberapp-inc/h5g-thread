@@ -12,6 +12,7 @@ class Score extends GameObject{
     combo:number = 0;
     text:egret.TextField = null;
     textBest:egret.TextField = null;
+    textLevel:egret.TextField = null;
 
     constructor() {
         super();
@@ -23,6 +24,11 @@ class Score extends GameObject{
 
         this.textBest = Util.newTextField("BEST:" + Score.bestScore, Util.width / 24, Game.bColor(), 0.85, 0.0, true, true);
         GameObject.gameDisplay.addChild( this.textBest );
+
+        if( Game.level > 0 ){
+            this.textLevel = Util.newTextField("レベル:" + Game.level, Util.width / 24, Game.bColor(), 0.15, 0.0, true, true);
+            GameObject.gameDisplay.addChild( this.textLevel );
+        }
     }
     
     onDestroy() {
@@ -30,6 +36,9 @@ class Score extends GameObject{
         this.text = null;
         GameObject.gameDisplay.removeChild( this.textBest );
         this.textBest = null;
+        if( this.textLevel )
+            GameObject.gameDisplay.removeChild( this.textLevel );
+        this.textLevel = null;
         Score.I = null;
     }
 

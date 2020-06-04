@@ -2,6 +2,7 @@ class Social {
     private static sdk;
     private static leaderboard;
     private static myBestEntry;
+    private static rawData;
 
     static async init() {
         const sdk = await Sdk.loadSdk();
@@ -11,12 +12,14 @@ class Social {
         await sdk.startGameAsync();
         Toast.show({ text: `${this.playerName}さんようこそ！`, delay: 30000, canHide:true });
         this.leaderboard = await sdk.getLeaderboardAsync("default");
-        const [entryCount, entries, playerEntry] = await Promise.all([
+        const [entryCount, entries, playerEntry, rawData] = await Promise.all([
             this.leaderboard.getEntryCountAsync(),
             this.leaderboard.getEntriesAsync(3,0),
-            this.leaderboard.getPlayerEntryAsync()
+            this.leaderboard.getPlayerEntryAsync(),
+            this.sdk.player.getDataAsync(['level',])
         ]);
         this.playerEntry = playerEntry;
+        this.rawData = rawData;
 
         if (this.hasBest) {
             Toast.show({ text: `今のところ${entryCount}人中${this.bestRank}位です`, delay: 3000 });
@@ -59,5 +62,26 @@ class Social {
 
     static get playerName() {
         return this.sdk.player.getName() || "名無し";
+    }
+
+    // level
+
+    static get hasData(): boolean {
+        return !!this.rawData;
+    }
+
+    static get level(): number {
+        if( this.hasData && 'level' in this.rawData )
+            return this.rawData['level'];
+        return 0;
+    }
+
+    static async setLevel(level: number) {
+        console.log(`setLevel ${level}`);
+        this.rawData['level'] = level;
+        Toast.show({ text: `達成レベルを送信中`, delay: 30000, canHide:true });
+        await this.sdk.player.setDataAsync({ level: level, });
+        this.rawData = await this.sdk.player.getDataAsync(['level',]);
+        Toast.show({ text: `送信完了`, delay: 1500 });
     }
 }

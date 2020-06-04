@@ -142,10 +142,11 @@ class Player extends PhysicsObject{
     }
 
     miss(){
-        if( this.state == this.stateNone )
-            return;
+        if( this.state == this.stateNone ) return;
+        if( Muteki ) return;
+
         // console.log( "miss() Speed=" + Player.speedCo + " X=" + this.x );
-        new GameOver();
+        new GameOver( false );
         PhysicsObject.deltaScale = 0.1;
         egret.Tween.removeAllTweens();
         this.state = this.stateNone;

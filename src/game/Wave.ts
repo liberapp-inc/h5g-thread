@@ -66,11 +66,7 @@ class Wave extends GameObject{
                 if( this.goalCount <= 3 ){
                     this.waveX += Util.w(PILLAR_INTER_PER_W);
                     if( this.goalCount <= 0 ){
-                        new GameOver( this.level );
-                        let level = Util.getSaveDataNumber( SaveKeyNextLevel, 1 );
-                        if( level == this.level ){
-                            Util.setSaveDataNumber( SaveKeyNextLevel, level + 1 );
-                        }
+                        new GameOver( true );
                         PhysicsObject.deltaScale = 0.0;
                         egret.Tween.removeAllTweens();
                         this.setStateNone();
@@ -99,13 +95,15 @@ class Wave extends GameObject{
                 }
 
                 const waveMax = Math.floor( Util.lerp( 3, 5, this.count/10 ) );
-                switch( this.rand.i( 0, waveMax+1 ) ){
+                const wave = this.rand.i( 0, waveMax+1 )
+                switch( wave ){
                     case 0: this.setStatePillar();  break;
                     case 1: this.setStateCave();    break;
                     case 2: this.setStateBall();    break;
                     case 3: this.setStateBox();     break;
                     case 4: this.setStateSlopeBox();break;
                     case 5: this.setStatePillar(1); break;
+                    default: console.error( "wave error" + wave ); break;
                 }
             }
             this.state();
@@ -157,7 +155,7 @@ class Wave extends GameObject{
 
     setStateCave(){
         this.state = this.stateCave;
-        this.endInterval = 2;
+        this.endInterval = 3;
         if( Player.speedCo <= 1 ){
             this.modeCount = this.rand.i( 2, 8 );
         }else{
