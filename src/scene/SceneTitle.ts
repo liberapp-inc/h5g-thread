@@ -46,9 +46,9 @@ class SceneTitle extends GameObject{
                     Game.level = 62;
                 }
             }
-            this.levelButton = new Button("レベル"+Game.level, Util.width/16, FONT_COLOR2, 0.50, 0.80, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
-            this.levelButtonP = new Button("+", Util.width/16, FONT_COLOR2, 0.85, 0.80, 0.10, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
-            this.levelButtonM = new Button("-", Util.width/16, FONT_COLOR2, 0.15, 0.80, 0.10, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
+            this.levelButton = new Button("コース"+Game.level, Util.width/18, FONT_COLOR2, 0.50, 0.80, 0.4, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
+            this.levelButtonP = new Button("+", Util.width/16, FONT_COLOR2, 0.85, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
+            this.levelButtonM = new Button("-", Util.width/16, FONT_COLOR2, 0.15, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
         }
 
         this.texts.forEach( text =>{ if( text ){ GameObject.baseDisplay.addChild( text ); } });
@@ -72,11 +72,11 @@ class SceneTitle extends GameObject{
     onTapLevelP( btn:Button ){
         const max = SDK ? Social.level + 1 : 999;
         Game.level = Util.clamp( Game.level + 1, 1, max );
-        this.levelButton.text.text = "レベル" + Game.level;
+        this.levelButton.text.text = "コース" + Game.level;
     }
     onTapLevelM( btn:Button ){
         const max = SDK ? Social.level + 1 : 999;
         Game.level = Util.clamp( Game.level - 1, 1, max );
-        this.levelButton.text.text = "レベル" + Game.level;
+        this.levelButton.text.text = "コース" + Game.level;
     }
 }

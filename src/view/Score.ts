@@ -26,7 +26,7 @@ class Score extends GameObject{
         GameObject.gameDisplay.addChild( this.textBest );
 
         if( Game.level > 0 ){
-            this.textLevel = Util.newTextField("レベル:" + Game.level, Util.width / 24, Game.bColor(), 0.15, 0.0, true, true);
+            this.textLevel = Util.newTextField("コース:" + Game.level, Util.width / 24, Game.bColor(), 0.15, 0.0, true, true);
             GameObject.gameDisplay.addChild( this.textLevel );
         }
     }

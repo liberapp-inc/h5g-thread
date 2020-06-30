@@ -77,11 +77,11 @@ class Social {
     }
 
     static async setLevel(level: number) {
-        console.log(`setLevel ${level}`);
         this.rawData['level'] = level;
+        console.log(`setLevel ${level} ${this.rawData['level']}`);
         Toast.show({ text: `達成レベルを送信中`, delay: 30000, canHide:true });
         await this.sdk.player.setDataAsync({ level: level, });
-        this.rawData = await this.sdk.player.getDataAsync(['level',]);
+        //this.rawData = await this.sdk.player.getDataAsync(['level',]);
         Toast.show({ text: `送信完了`, delay: 1500 });
     }
 }

@@ -21,7 +21,7 @@ class GameOver extends GameObject{
         GameObject.gameDisplay.addChild( this.texts[0] );
 
         if( Game.level > 0 && this.clear ){
-            this.texts[1] = Util.newTextField("レベル" + Game.level + "クリア", Util.width / 13, FONT_COLOR, 0.5, 0.3, true, false);
+            this.texts[1] = Util.newTextField("コース" + Game.level + "クリア", Util.width / 13, FONT_COLOR, 0.5, 0.3, true, false);
             GameObject.gameDisplay.addChild( this.texts[1] );
         }
 
@@ -33,6 +33,7 @@ class GameOver extends GameObject{
             }else{
                 if( clear && Game.level > Social.level ){
                     Social.setLevel( Game.level );
+                    Game.level++;
                 }
             }
         }
@@ -62,7 +63,6 @@ class GameOver extends GameObject{
      }
 
     onTapBack(){
-        if( this.clear && SDK && Game.level == Social.level ) Game.level++;
         GameObject.transit = SceneTitle.loadScene;
         this.destroy();
     }
