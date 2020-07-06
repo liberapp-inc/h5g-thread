@@ -1,6 +1,9 @@
+type SdkEnv = "fbi-production" | "production" | "staging" | "development" | "egret-wing";
+
 class Sdk {
-  private static env: "production" | "staging" | "development" | "egret-wing";
+  private static env: SdkEnv;
   private static baseUrls = {
+    "fbi-production": "https://connect.facebook.net/en_US/fbinstant.6.2.js",
     production: "https://liberapp.net",
     staging: "https://staging.liberapp.net",
     development: "https://localhost",
@@ -22,7 +25,7 @@ class Sdk {
     console.log("srcUrl: ", srcUrl);
     const script = await this.loadScript(srcUrl);
     console.log("script:", script);
-    const liberappSdk = window["LiberappSdk"];
+    const liberappSdk = window["FBInstant"]; // window["LiberappSdk"];
     if (this.env === "egret-wing") {
       await liberappSdk.enableDebug();
     }
@@ -33,22 +36,26 @@ class Sdk {
   /** @internal */
   private static detectMode(
     origin: string
-  ): "production" | "staging" | "development" | "egret-wing" {
-    if (/^https:\/\/(.+)\.a\.liberapp\.net$/.test(origin)) {
-      return "production";
-    }
-    if (/^https:\/\/(.+)\.a\.staging.\.liberapp\.net$/.test(origin)) {
-      return "staging";
-    }
-    if (/^https:\/\/(.+)\.a\.development\.liberapp\.net$/.test(origin)) {
-      return "development";
-    }
-    return "egret-wing";
+  ): SdkEnv {
+    return "fbi-production";
+    // if (/^https:\/\/(.+)\.a\.liberapp\.net$/.test(origin)) {
+    //   return "production";
+    // }
+    // if (/^https:\/\/(.+)\.a\.staging.\.liberapp\.net$/.test(origin)) {
+    //   return "staging";
+    // }
+    // if (/^https:\/\/(.+)\.a\.development\.liberapp\.net$/.test(origin)) {
+    //   return "development";
+    // }
+    // return "egret-wing";
   }
 
   /** @internal */
   private static resolveSdkUrl(path: string): string {
     const baseUrl = this.baseUrls[this.env];
+    if (/\.js$/.test(baseUrl)) {
+      return baseUrl;
+    }
     return `${baseUrl}${path}`;
   }
 
