@@ -20,3 +20,5 @@ egret-game-library-master/
 
 
 PowerShell -ExecutionPolicy RemoteSigned .\publish-fbi.ps1
+
+
