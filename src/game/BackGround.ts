@@ -15,9 +15,11 @@ class BackGround extends GameObject{
         this.display = shape;
         GameObject.gameDisplay.addChild(this.display);
 
+        const w = Util.width;
+        const h = ( Util.height - Util.w(GAME_AREA_H_PER_W) ) * 0.5;
         shape.graphics.beginFill( Game.oColor(), 1 );
-        shape.graphics.drawRect(0, 0,  Util.width, Util.h(0.5)-Util.w(GAME_AREA_H_PER_W*0.5) );
-        shape.graphics.drawRect(0, Util.h(0.5)+Util.w(GAME_AREA_H_PER_W*0.5),  Util.width, Util.height );
+        shape.graphics.drawRect(0, 0,               w, h );
+        shape.graphics.drawRect(0, Util.height-h,   w, GameObject.gameDisplay.stage.stageHeight - (Util.height-h) );
         shape.graphics.endFill();
     }
 

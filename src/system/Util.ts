@@ -10,8 +10,9 @@ class Util{
     public static h( rate:number ){ return rate * Util.height; }
 
     static initial( eui:eui.UILayer ) {
-        this.width  = eui.stage.stageWidth;
-        this.height = eui.stage.stageHeight;
+        // 画面表示を上に寄せるため数値固定
+        this.width  = 640;// eui.stage.stageWidth;
+        this.height = 1024 < eui.stage.stageHeight ? 1024 : eui.stage.stageHeight;
     }
 
     static break( condition:boolean, message:string ){

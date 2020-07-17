@@ -5,12 +5,13 @@ class Social {
     private static rawData;
 
     static async init() {
-        const sdk = await Sdk.loadSdk();
+        // const sdk = await Sdk.loadSdk();
+        const sdk = window["FBInstant"];
         this.sdk = sdk;
         Toast.show({ text: "ログイン中・・・", delay: 30000, canHide:true });
         await sdk.initializeAsync();
         await sdk.startGameAsync();
-        Toast.show({ text: `${this.playerName}さんようこそ！`, delay: 30000, canHide:true });
+        Toast.show({ text: `${this.playerName}さんようこそ！`, delay: 3000, canHide:true });
         this.leaderboard = await sdk.getLeaderboardAsync("default");
         const [entryCount, entries, playerEntry, rawData] = await Promise.all([
             this.leaderboard.getEntryCountAsync(),
@@ -24,6 +25,7 @@ class Social {
         if (this.hasBest) {
             Toast.show({ text: `今のところ${entryCount}人中${this.bestRank}位です`, delay: 3000 });
         } else {
+            console.log( "playerName " + this.playerName );
             const p1 = entries[0];
             if (p1) {
                 console.log(p1);
@@ -32,6 +34,7 @@ class Social {
                 Toast.show({ text: `${entryCount}人が遊んでいます!\n一番は${p1Name}さん\nスコアは${p1Score}です`, delay: 3000 });
             }
         }
+        console.log( "rawData level " + this.level );
     }
 
     static get hasBest(): boolean {
