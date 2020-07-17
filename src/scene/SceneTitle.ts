@@ -29,8 +29,7 @@ class SceneTitle extends GameObject{
         // this.texts[1] = Util.newTextField("タッチ中は上昇", Util.width / 19, FONT_COLOR, 0.5, 0.35, true, false);
         // this.texts[2] = Util.newTextField("ぶつからないように進め", Util.width / 19, FONT_COLOR, 0.5, 0.4, true, false);
 
-        let bestScore = Util.getSaveDataNumber( SaveKeyBestScore, DefaultBestScore );
-        this.texts[3] = Util.newTextField("自己ベスト:"+bestScore+"", Util.width / 16, FONT_COLOR, 0.5, 0.35, true, true);
+        this.texts[3] = Util.newTextField("自己ベスト:"+Social.bestScore+"", Util.width / 16, FONT_COLOR, 0.5, 0.35, true, true);
 
         if( !LevelSelect ){
             // エンドレスモードのみ
@@ -40,11 +39,7 @@ class SceneTitle extends GameObject{
             this.startButton = new Button("エンドレス", Util.width/16, FONT_COLOR2, 0.50, 0.65, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
             // レベルモード
             if( Game.level == 0 ){
-                if( SDK ){
-                    Game.level = Social.level + 1;
-                }else{
-                    Game.level = 62;
-                }
+                Game.level = SDK ? Social.level + 1 : 100;
             }
             this.levelButton = new Button("コース"+Game.level, Util.width/18, FONT_COLOR2, 0.50, 0.80, 0.4, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
             this.levelButtonP = new Button("+", Util.width/16, FONT_COLOR2, 0.85, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );

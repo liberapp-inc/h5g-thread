@@ -45,8 +45,8 @@ class Wave extends GameObject{
             if( level < Wave.levelSeeds.length )
             if( Wave.levelSeeds[ level ] != 0 )
                 seed = Wave.levelSeeds[ level ];
-            this.rand = new Random( seed * 573 + 765 );
-            this.rand.int();
+            this.rand = new Random( seed * 0x573765 + 0xa0311 );
+            for( let i=0 ; i<10 ; i++ ) this.rand.int();
             this.count = level*2;
             this.goalCount = 12 + level/4;
         }
@@ -125,7 +125,7 @@ class Wave extends GameObject{
             this.modeCount = 4;
         }
         if( angle != 0 ){
-            PillarAngle.updateAngle();
+            PillarAngle.updateAngle( this.rand );
             this.angled = true;
         }else{
             this.angled = false;

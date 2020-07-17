@@ -5,11 +5,10 @@ class PillarAngle extends Pillar{
 
     public static angle:number = 0;
 
-    public static updateAngle(){
+    public static updateAngle( rand:Random ){
         const range = 2;
-        this.angle = randI( -range, +range );
-        if( this.angle >= 0 )
-            this.angle++;   // -2, -1, +1, +2
+        this.angle = rand.i( -range, +range );
+        if( this.angle >= 0 ) this.angle++;   // -2, -1, +1, +2
         this.angle = this.angle / 2 * Math.PI / 6;
     }
 

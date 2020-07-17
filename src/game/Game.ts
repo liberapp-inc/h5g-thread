@@ -1,7 +1,7 @@
 // Liberapp 2019 - Tahiti Katagai
 // ゲームシーン
 
-const SaveKeyBestScore = "thread-bestScore";
+//const SaveKeyBestScore = "thread-bestScore";
 const DefaultBestScore = 10;
 
 const PIXEL_PER_METER = 1;
