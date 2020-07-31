@@ -1,7 +1,8 @@
 class Sdk {
-  private static env: "production" | "staging" | "development" | "egret-wing";
+  private static env: "production" | "staging" | "development" | "egret-wing" | "extplatform";
   private static baseUrls = {
     production: "https://liberapp.net",
+    extplatform: "https://liberapp.net",
     staging: "https://staging.liberapp.net",
     development: "https://localhost",
     "egret-wing": "https://staging.liberapp.net",
@@ -33,7 +34,7 @@ class Sdk {
   /** @internal */
   private static detectMode(
     origin: string
-  ): "production" | "staging" | "development" | "egret-wing" {
+  ): "production" | "staging" | "development" | "egret-wing" | "extplatform"{
     if (/^https:\/\/(.+)\.a\.liberapp\.net$/.test(origin)) {
       return "production";
     }
@@ -43,7 +44,11 @@ class Sdk {
     if (/^https:\/\/(.+)\.a\.development\.liberapp\.net$/.test(origin)) {
       return "development";
     }
-    return "egret-wing";
+    if (/^https?:\/\/localhost$/.test(origin) ||
+        /^https?:\/\/^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$/.test(origin)) {
+      return "egret-wing";
+    }
+    return "extplatform";
   }
 
   /** @internal */

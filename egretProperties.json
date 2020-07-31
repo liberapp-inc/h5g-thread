@@ -1,34 +1,34 @@
 {
-  "engineVersion": "5.2.19",
-  "compilerVersion": "5.2.19",
-  "template": {},
-  "target": {
-    "current": "web"
-  },
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "eui"
-    },
-    {
-      "name": "assetsmanager"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "promise"
-    },
-    {
-      "name": "physics",
-      "path": "../egret-game-library-master/physics/libsrc"
-    }
-  ],
-  "urlParams": {
-      "t": "afba5f6b-2d7f-49cc-b07e-f8a8fde628d3",
-      "u": "0508280e-a343-411f-91a3-a9f949824672",
-      "a": "5fd80ca1-5010-438d-a07a-a0fd73cf777e"
-  }
+	"engineVersion": "5.2.33",
+	"compilerVersion": "5.2.33",
+	"template": {},
+	"target": {
+		"current": "web"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "physics",
+			"path": "../egret-game-library/physics/libsrc/bin/physics"
+		}
+	],
+	"urlParams": {
+		"t": "afba5f6b-2d7f-49cc-b07e-f8a8fde628d3",
+		"u": "0508280e-a343-411f-91a3-a9f949824672",
+		"a": "5fd80ca1-5010-438d-a07a-a0fd73cf777e"
+	}
 }
