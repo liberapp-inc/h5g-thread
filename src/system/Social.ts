@@ -5,8 +5,8 @@ class Social {
     private static rawData;
 
     static async init() {
-        // const sdk = await Sdk.loadSdk();
-        const sdk = window["FBInstant"];
+        const sdk = await Sdk.loadSdk();
+        // const sdk = window["FBInstant"];
         this.sdk = sdk;
         Toast.show({ text: "ログイン中・・・", delay: 30000, canHide:true });
         await sdk.initializeAsync();

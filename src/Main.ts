@@ -1,7 +1,7 @@
 // Thread
 // Liberapp 2019 - Tahiti Katagai
 
-const SDK = true;
+const SDK = false;
 const Muteki = false;
 
 class Main extends eui.UILayer {
