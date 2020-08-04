@@ -23,6 +23,10 @@ class Main extends eui.UILayer {
         SceneTitle.loadScene();
         egret.startTick(this.tickLoop, this);
         this.initOrientationEvent();
+
+        // ad
+        let elem = document.getElementById("liberapp_ad");
+        elem.innerHTML = '<div id ="liberapp_ad">りべらぷAD</div>';
     }
 
     tickLoop(timeStamp:number):boolean{
