@@ -1,6 +1,8 @@
 // Liberapp 2020 - Tahiti Katagai
 // タイトルシーン
 
+//import trEventBe from "../Analytics";
+
 const LevelSelect = true;
 
 class SceneTitle extends GameObject{
@@ -36,14 +38,14 @@ class SceneTitle extends GameObject{
             this.startButton = new Button("スタート", Util.width/16, FONT_COLOR2, 0.50, 0.65, 0.6, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
         }else{
             // エンドレスモード
-            this.startButton = new Button("エンドレス", Util.width/16, FONT_COLOR2, 0.50, 0.65, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
+            this.startButton = new Button("エンドレス", Util.width/16, Game.bColor(), 0.50, 0.65, 0.5, 0.1, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapStart(btn), this );
             // レベルモード
             if( Game.level == 0 ){
-                Game.level = SDK ? Social.level + 1 : 100;
+                Game.level = Util.getSaveDataNumber( SaveKeyPastLevel, 0 ) + 1; //SDK ? Social.level + 1 : 100;
             }
-            this.levelButton = new Button("コース"+Game.level, Util.width/18, FONT_COLOR2, 0.50, 0.80, 0.4, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
-            this.levelButtonP = new Button("+", Util.width/16, FONT_COLOR2, 0.85, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
-            this.levelButtonM = new Button("-", Util.width/16, FONT_COLOR2, 0.15, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
+            this.levelButton = new Button("コース"+Game.level, Util.width/18, Game.bColor(), 0.50, 0.80, 0.4, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevel(btn), this );
+            this.levelButtonP = new Button("+", Util.width/16, Game.bColor(), 0.85, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelP(btn), this );
+            this.levelButtonM = new Button("-", Util.width/16, Game.bColor(), 0.15, 0.80, 0.17, 0.07, FONT_COLOR, 1.0, -1, true, (btn:Button)=>this.onTapLevelM(btn), this );
         }
 
         this.texts.forEach( text =>{ if( text ){ GameObject.baseDisplay.addChild( text ); } });
@@ -60,18 +62,35 @@ class SceneTitle extends GameObject{
     onTapStart( btn:Button ){
         GameObject.transit = ScenePlay.loadScene;
         Game.level = 0;
+        
+        // trEventBe("ゲーム開始 画面", "スタート", "");
+        {
+            const category = "ゲーム開始 画面";
+            const action = "スタート";
+            const label = "";
+            const e = window.event;
+            const context = e ? e.currentTarget : window;
+            if ('ga' in window && 'trEventBe' in window) {
+                // GTMで提供されるtrEventBeを利用する
+                window.trEventBe(context, category, action, label, e);
+                return;
+            }
+            // eslint-disable-next-line no-console
+            console.log('trEventBe: "%s", "%s", "%s", %o, %o', category, action, label, context, e);
+        }
     }
     onTapLevel( btn:Button ){
         GameObject.transit = ScenePlay.loadScene;
     }
     onTapLevelP( btn:Button ){
-        const max = SDK ? Social.level + 1 : 999;
+        const max = Util.getSaveDataNumber( SaveKeyPastLevel, 0 ) + 1;//SDK ? Social.level + 1 : 999;
         Game.level = Util.clamp( Game.level + 1, 1, max );
         this.levelButton.text.text = "コース" + Game.level;
     }
     onTapLevelM( btn:Button ){
-        const max = SDK ? Social.level + 1 : 999;
+        const max = Util.getSaveDataNumber( SaveKeyPastLevel, 0 ) + 1;//SDK ? Social.level + 1 : 999;
         Game.level = Util.clamp( Game.level - 1, 1, max );
         this.levelButton.text.text = "コース" + Game.level;
     }
 }
+

@@ -12,6 +12,7 @@ class Main extends eui.UILayer {
     }
  
     private async addToStage() {
+        await this.loadResource();
 
         Util.initial( this );
         GameObject.initial( this.stage );
@@ -27,6 +28,16 @@ class Main extends eui.UILayer {
         // ad
         let elem = document.getElementById("liberapp_ad");
         elem.innerHTML = '<div id ="liberapp_ad">りべらぷAD</div>';
+    }
+
+    private async loadResource() {
+        try {
+            await RES.loadConfig("resource/default.res.json", "resource/");
+            await RES.loadGroup("preload", 0);
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     tickLoop(timeStamp:number):boolean{
@@ -53,6 +64,7 @@ class Main extends eui.UILayer {
             if( this.text ){
                 this.text.parent.removeChild( this.text );
                 this.fill.parent.removeChild( this.fill );
+                this.text = this.fill = null;
             }
         }else{
             this.pause = true;

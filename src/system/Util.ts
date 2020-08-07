@@ -12,7 +12,8 @@ class Util{
     static initial( eui:eui.UILayer ) {
         // 画面表示を上に寄せるため数値固定
         this.width  = 640;// eui.stage.stageWidth;
-        this.height = 1024 < eui.stage.stageHeight ? 1024 : eui.stage.stageHeight;
+        // this.height = 1024 < eui.stage.stageHeight ? 1024 : eui.stage.stageHeight;
+        this.height = 864 < eui.stage.stageHeight ? 864 : eui.stage.stageHeight;
     }
 
     static break( condition:boolean, message:string ){
