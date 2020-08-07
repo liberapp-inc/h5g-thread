@@ -1,10 +1,60 @@
 {
 	"groups": [
 		{
-			"keys": "",
+			"keys": "popper_l_png,popper_r_png,logo_svg,load_gif,line_svg,landscape_png,home_svg,fb_svg,twitter_svg,result_png",
 			"name": "preload"
 		}
 	],
 	"resources": [
+		{
+			"url": "assets/img/popper_l.png",
+			"type": "image",
+			"name": "popper_l_png"
+		},
+		{
+			"url": "assets/img/popper_r.png",
+			"type": "image",
+			"name": "popper_r_png"
+		},
+		{
+			"url": "assets/img/fb.svg",
+			"type": "image",
+			"name": "fb_svg"
+		},
+		{
+			"url": "assets/img/home.svg",
+			"type": "image",
+			"name": "home_svg"
+		},
+		{
+			"url": "assets/img/landscape.png",
+			"type": "image",
+			"name": "landscape_png"
+		},
+		{
+			"url": "assets/img/line.svg",
+			"type": "image",
+			"name": "line_svg"
+		},
+		{
+			"url": "assets/img/logo.svg",
+			"type": "image",
+			"name": "logo_svg"
+		},
+		{
+			"url": "assets/img/result.png",
+			"type": "image",
+			"name": "result_png"
+		},
+		{
+			"url": "assets/img/twitter.svg",
+			"type": "image",
+			"name": "twitter_svg"
+		},
+		{
+			"url": "assets/img/load.gif",
+			"type": "image",
+			"name": "load_gif"
+		}
 	]
 }

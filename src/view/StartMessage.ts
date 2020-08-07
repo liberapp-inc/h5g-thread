@@ -24,6 +24,7 @@ class StartMessage extends GameObject{
     update() {}
 
     tap(e:egret.TouchEvent){
+        treventbe("【click】ゲーム画面", "ゲーム開始", "");
         Player.I.setStateMove();
         this.destroy();
     }

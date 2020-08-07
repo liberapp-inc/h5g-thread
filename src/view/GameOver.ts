@@ -99,6 +99,8 @@ class GameOver extends GameObject{
 
         this.tex.forEach( tex => { GameObject.baseDisplay.addChild( tex ); } );
         this.texts.forEach( text => { GameObject.baseDisplay.addChild( text ); } );
+
+        treventbe("click】ゲーム画面", "ゲーム終了", "");
     }
 
     onDestroy() {

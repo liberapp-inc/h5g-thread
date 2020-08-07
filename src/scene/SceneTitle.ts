@@ -31,7 +31,7 @@ class SceneTitle extends GameObject{
         // this.texts[1] = Util.newTextField("タッチ中は上昇", Util.width / 19, FONT_COLOR, 0.5, 0.35, true, false);
         // this.texts[2] = Util.newTextField("ぶつからないように進め", Util.width / 19, FONT_COLOR, 0.5, 0.4, true, false);
 
-        this.texts[3] = Util.newTextField("自己ベスト:"+Social.bestScore+"", Util.width / 16, FONT_COLOR, 0.5, 0.35, true, true);
+        this.texts[3] = Util.newTextField("自己ベスト:"+Score.bestScore+"", Util.width / 16, FONT_COLOR, 0.5, 0.35, true, true);
 
         if( !LevelSelect ){
             // エンドレスモードのみ
@@ -62,25 +62,11 @@ class SceneTitle extends GameObject{
     onTapStart( btn:Button ){
         GameObject.transit = ScenePlay.loadScene;
         Game.level = 0;
-        
-        // trEventBe("ゲーム開始 画面", "スタート", "");
-        {
-            const category = "ゲーム開始 画面";
-            const action = "スタート";
-            const label = "";
-            const e = window.event;
-            const context = e ? e.currentTarget : window;
-            if ('ga' in window && 'trEventBe' in window) {
-                // GTMで提供されるtrEventBeを利用する
-                window.trEventBe(context, category, action, label, e);
-                return;
-            }
-            // eslint-disable-next-line no-console
-            console.log('trEventBe: "%s", "%s", "%s", %o, %o', category, action, label, context, e);
-        }
+        treventbe("【click】ゲーム開始 画面", "スタート", "");
     }
     onTapLevel( btn:Button ){
         GameObject.transit = ScenePlay.loadScene;
+        treventbe("【click】ゲーム開始 画面", "スタート", "");
     }
     onTapLevelP( btn:Button ){
         const max = Util.getSaveDataNumber( SaveKeyPastLevel, 0 ) + 1;//SDK ? Social.level + 1 : 999;
