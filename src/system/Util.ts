@@ -10,10 +10,10 @@ class Util{
     public static h( rate:number ){ return rate * Util.height; }
 
     static initial( eui:eui.UILayer ) {
-        // 画面表示を上に寄せるため数値固定
-        this.width  = 640;// eui.stage.stageWidth;
-        // this.height = 1024 < eui.stage.stageHeight ? 1024 : eui.stage.stageHeight;
-        this.height = eui.stage.stageHeight - 128;
+        this.width  = eui.stage.stageWidth;
+        // 広告サイズ50分だけ画面を上に寄せる
+        // this.height = eui.stage.stageHeight - 64;
+        this.height = eui.stage.stageHeight - 50 * eui.stage.stageHeight/window.innerHeight
     }
 
     static break( condition:boolean, message:string ){
