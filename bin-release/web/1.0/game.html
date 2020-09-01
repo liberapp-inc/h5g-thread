@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF8">
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta name="robots" content="noindex">
+<meta http-equiv="cache-control" content="no-cache" />
+<meta name="apple-touch-fullscreen" content="YES" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+<title>タイトル</title>
+
+<script >
+var gameClickStart = '{"action":"game:click:start"}';
+var gameStart = '{"action":"game:start"}';
+var gameEndScore = '{"action":"game:end","payload":{"score":"1000","stage":"1"}}';
+var gameEndText = '{"action":"game:end","payload":{"score":"1000","text":"You Win","stage":"1"}}';
+var gameEndFree = '{"action":"game:end","payload":{"free":"フリーテキスト1<br>フリーテキスト2"}}';
+var gameRetry = '{"action":"game:retry"}';
+var gameReward = '{"action":"game:reward"}';
+var targetOrigin = location.origin;
+
+window.addEventListener('message', function(e){
+    if (e.origin !== targetOrigin) {
+        return;
+    }
+
+    console.log(e.data);
+});
+</script>
+
+<style>
+    body { background-color: #666; }
+    button { background-color: #fff; }
+</style>
+
+</head>
+<body>
+
+<!-- 実行サンプル -->
+<button onclick="parent.postMessage(gameClickStart, targetOrigin)">「スタート」ボタン押下</button><br/>
+<button onclick="parent.postMessage(gameStart, targetOrigin)">ゲーム開始</button><br/>
+<button onclick="parent.postMessage(gameEndScore, targetOrigin)">ゲーム終了(スコア表示)</button><br/>
+<button onclick="parent.postMessage(gameEndText, targetOrigin)">ゲーム終了(テキスト表示)</button><br/>
+<button onclick="parent.postMessage(gameEndFree, targetOrigin)">ゲーム終了(HTML表示)</button><br/>
+<button onclick="parent.postMessage(gameReward, targetOrigin)">リワード広告</button><br/>
+<button onclick="parent.postMessage(gameRetry, targetOrigin)">ゲーム中広告リロード</button><br/>
+<!-- 実行サンプル -->
+
+</body>
+</html>

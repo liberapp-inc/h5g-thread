@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-title" content="無料ゲーム">
+    <meta name="format-detection" content="telephone=no">
+    <% if (htmlWebpackPlugin.options.dist === 'portal') { %>
+        <title>指定されたページは存在しません|au Webポータル</title>
+    <% } else { %>
+        <title>指定されたページは存在しません|auサービスTOP</title>
+    <% } %>
+    <link rel="icon" href="">
+    <link rel="apple-touch-icon-precomposed" href="">
+    <style>
+        a,abbr,acronym,address,applet,big,blockquote,body,caption,cite,code,dd,del,dfn,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,h5,h6,html,iframe,img,ins,kbd,label,legend,li,object,ol,p,pre,q,s,samp,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,tt,ul,var{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-family:inherit;font-size:100%;vertical-align:baseline}body{line-height:1;color:#000;background:#fff}ol,ul{list-style:none}table{border-collapse:separate;border-spacing:0;vertical-align:middle}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}a img{border:none}article,aside,canvas,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{margin:0;padding:0;border:0;outline:0;display:block}audio,canvas,video{display:inline-block}[hidden],audio:not([controls]){display:none}.base__bg,.footer,.header__cover,body{background-color:#fff}body{color:#3c3c3c;font-family:sans-serif;-webkit-text-size-adjust:100%}body *{word-break:break-word}body,html{height:100%}input,textarea{font-family:sans-serif}button{font-weight:400;-webkit-appearance:none}input[type=search]{-webkit-appearance:textfield;-webkit-box-sizing:content-box}input[type=search]:focus{outline-offset:-2px}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}a{text-decoration:none;color:#3c3c3c}a:active,a:hover,a:link{color:#3c3c3c}a:visited{color:#727272}.wrapper__contents{position:relative;width:100%;height:100%}.button--default::after{display:inline-block;width:9px;height:15px;margin:0 0 2px 5px;vertical-align:middle;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAeCAYAAAAhDE4sAAAAAXNSR0IArs4c6QAAASRJREFUSA3tlb0OAVEQRhUeQaHQbKFRkaBRiYJORyQewit6CI2ERBQKQYQQ8bPOJDvNZDO7WaEyycnc2Znvu5t7V+RyUYRhWIea1plyZHIg7zKbIczDAjQ+MqvhIgYaf7OEu+Wg/meWcEa2/e0zO7HB0G6aqo55syfPxqnEdgjhBF6gcWGRt3NujaAHN3UgP6DjimwTQRuuoLFi0bVzbo2gBWd1IC+h5IpsE0EDjqCxZhHYObdGUIW9OpA3UHZFtomgAlvQkHXFzrk1gjLI7hryVlVXZJsIApBz0JDzadg5t0ZQArkRDbmpliuyTQRFmKsDWb6Ztp1zawQFmIGGfL09VxTXRDRVB/Id+nFzic8QNkH+aeW3M0gUeAMYyMc38mZ+0nsDaRFQdV7vL3AAAAAASUVORK5CYII=) no-repeat;-webkit-background-size:9px 15px;background-size:9px 15px;content:''}.button{max-width:414px;margin:10px auto;padding:0 30px;text-align:center}body,html{height:100%}.wrapper__contents{position:relative;width:100%;height:auto;min-height:100%;background-color:#f6f6f6}.error__text{position:absolute;top:0;right:0;bottom:0;left:0;height:106px;margin:auto;color:#727272;font-size:15px;text-align:center;line-height:1.5}.header{padding-bottom:226px}.header__cover{padding:14px 0 11px 0}.header__text h1{height:16px;background:url(./img/logo.svg) center no-repeat;-webkit-background-size:41px auto;background-size:41px auto;text-indent:100%;white-space:nowrap;overflow:hidden}.footer{width:100%;height:40px;position:absolute;bottom:0;text-align:center}.footer__copyright{padding:10px;font-size:12px}.button--default{display:inline-block;-webkit-box-sizing:border-box;box-sizing:border-box;position:relative;width:100%;max-width:300px;padding:10px 15%;border:none;border-radius:4px;background-color:#9e9e9e;color:#fff;font-size:15px;font-weight:700;line-height:1.5;outline:0}.button--default:active,.button--default:hover,.button--default:link,.button--default:visited{color:#fff}.button--default::after{position:absolute;right:10px;top:50%;margin-top:-7px}
+    </style>
+
+    <% if (htmlWebpackPlugin.options.dist === 'app') { %>
+    <style>
+        .header, .footer, .button{
+            display: none !important;
+        }
+    </style>
+    <% } %>
+</head>
+<body>
+
+<div class="wrapper__contents">
+    <header class="header">
+        <div class="header__cover">
+            <div class="header__text">
+                <h1>au</h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="error__text">
+        指定されたページは存在しないか、<br>
+        既に削除された可能性があります。
+        <div class="button">
+            <a href="https://portal.game.habits.auone.jp/" class="button--default button--arrow">無料ゲームTOPへ</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__copyright">
+            <small>©KDDI/©mediba</small>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
